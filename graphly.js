@@ -19,7 +19,7 @@
     $.fn.graphly = function(options) {  
         
         var settings = $.extend({
-            'json'          : null,
+            'data'          : null,
             'paddingTop'    : 1,
             'paddingLeft'   : 1,
             'paddingBottom' : 1,
@@ -28,11 +28,11 @@
             'showLegend'    : true
         }, options);
         
-        var colours = new Array();
+        var colors = new Array();
         var methods = {
             getBarCount : function() {
                 var retval = 0;
-                $.each(settings.json.groups, function(i, item) {
+                $.each(settings.data.groups, function(i, item) {
                     retval += item.values.length;
                 });
                 
@@ -40,7 +40,7 @@
             },
             getLargestValue : function() {
                 var retval = null;
-                $.each(settings.json.groups, function(i, item) {
+                $.each(settings.data.groups, function(i, item) {
                     $.each(item.values, function(i, item) {
                         if (retval == null || retval < item.value) {
                             retval = item.value;   
@@ -52,7 +52,7 @@
             },
             getSmallestValue : function() {
                 var retval = null;
-                $.each(settings.json.groups, function(i, item) {
+                $.each(settings.data.groups, function(i, item) {
                     $.each(item.values, function(i, item) {
                         if (retval == null || retval > item.value) {
                             retval = item.value;   
@@ -65,7 +65,7 @@
             getLargestLabel : function(ctx) {
                 var retval = null;
                 
-                $.each(settings.json.groups, function(i, item) {
+                $.each(settings.data.groups, function(i, item) {
                     $.each(item.values, function(i, item) {
                         var labelWidth = ctx.measureText(item.label).width;
                         if (retval == null || retval < labelWidth) {
@@ -82,7 +82,7 @@
                 ctx.translate(x, y);
                 ctx.rotate(270 * Math.PI / 180);
                 ctx.translate(-x, -y);
-                ctx.fillText(settings.json.yLabel, x, y);
+                ctx.fillText(settings.data.yLabel, x, y);
                 
                 ctx.restore();   
             },
@@ -91,7 +91,7 @@
                 var y = settings.paddingTop + 5;
                 var labels = new Array();
                 
-                $.each(settings.json.groups, function(i, item) {
+                $.each(settings.data.groups, function(i, item) {
                     $.each(item.values, function(i, item) {
                         if ($.inArray(item.label, labels) == -1) {
                             labels[labels.length] = item.label;   
@@ -110,7 +110,7 @@
                     labelY += 16;
                     ctx.beginPath();
                     ctx.rect(x, labelY, 11, 11);
-                    ctx.fillStyle = colours[i];
+                    ctx.fillStyle = colors[i];
                     ctx.fill();
                     ctx.closePath();
                     ctx.textBaseline = "top";
@@ -119,1254 +119,1254 @@
                 
                 ctx.restore();
             },
-            setupColours : function() {
+            setupcolors : function() {
                 // Aero
-                colours[0] = '#7CB9E8';
+                colors[0] = '#7CB9E8';
                 // Carmine red
-                colours[1] = '#FF0038';
+                colors[1] = '#FF0038';
                 // Amber
-                colours[2] = '#FFBF00';
+                colors[2] = '#FFBF00';
                 // Android green
-                colours[3] = '#A4C639';
+                colors[3] = '#A4C639';
                 // Air Force blue (USAF)
-                colours[4] = '#00308F';
+                colors[4] = '#00308F';
                 // Electric purple
-                colours[5] = '#BF00FF';
+                colors[5] = '#BF00FF';
                 // Alabama Crimson
-                colours[6] = '#A32638';
+                colors[6] = '#A32638';
                 // Mustard
-                colours[7] = '#FFDB58';
+                colors[7] = '#FFDB58';
                 // Alizarin crimson
-                colours[8] = '#E32636';
+                colors[8] = '#E32636';
                 // Alloy orange
-                colours[9] = '#C46210';
+                colors[9] = '#C46210';
                 // Almond
-                colours[10] = '#EFDECD';
+                colors[10] = '#EFDECD';
                 // Amaranth
-                colours[11] = '#E52B50';
+                colors[11] = '#E52B50';
                 // Amazon
-                colours[12] = '#3B7A57';
+                colors[12] = '#3B7A57';
                 // Aero blue
-                colours[13] = '#C9FFE5';
+                colors[13] = '#C9FFE5';
                 // SAE/ECE Amber (color)
-                colours[14] = '#FF7E00';
+                colors[14] = '#FF7E00';
                 // American rose
-                colours[15] = '#FF033E';
+                colors[15] = '#FF033E';
                 // Amethyst
-                colours[16] = '#9966CC';
+                colors[16] = '#9966CC';
                 // African violet
-                colours[17] = '#B284BE';
+                colors[17] = '#B284BE';
                 // Myrtle green
-                colours[18] = '#317873';
+                colors[18] = '#317873';
                 // Antique brass
-                colours[19] = '#CD9575';
+                colors[19] = '#CD9575';
                 // Antique bronze
-                colours[20] = '#665D1E';
+                colors[20] = '#665D1E';
                 // Antique fuchsia
-                colours[21] = '#915C83';
+                colors[21] = '#915C83';
                 // Antique ruby
-                colours[22] = '#841B2D';
+                colors[22] = '#841B2D';
                 // Mulberry
-                colours[23] = '#C54B8C';
+                colors[23] = '#C54B8C';
                 // Ao (English)
-                colours[24] = '#008000';
+                colors[24] = '#008000';
                 // Apple green
-                colours[25] = '#8DB600';
+                colors[25] = '#8DB600';
                 // Apricot
-                colours[26] = '#FBCEB1';
+                colors[26] = '#FBCEB1';
                 // Aqua
-                colours[27] = '#00FFFF';
+                colors[27] = '#00FFFF';
                 // Aquamarine
-                colours[28] = '#7FFFD4';
+                colors[28] = '#7FFFD4';
                 // Army green
-                colours[29] = '#4B5320';
+                colors[29] = '#4B5320';
                 // Arsenic
-                colours[30] = '#3B444B';
+                colors[30] = '#3B444B';
                 // Arylide yellow
-                colours[31] = '#E9D66B';
+                colors[31] = '#E9D66B';
                 // Ash grey
-                colours[32] = '#B2BEB5';
+                colors[32] = '#B2BEB5';
                 // Asparagus
-                colours[33] = '#87A96B';
+                colors[33] = '#87A96B';
                 // Atomic tangerine
-                colours[34] = '#FF9966';
+                colors[34] = '#FF9966';
                 // Auburn
-                colours[35] = '#A52A2A';
+                colors[35] = '#A52A2A';
                 // Aureolin
-                colours[36] = '#FDEE00';
+                colors[36] = '#FDEE00';
                 // AuroMetalSaurus
-                colours[37] = '#6E7F80';
+                colors[37] = '#6E7F80';
                 // Avocado
-                colours[38] = '#568203';
+                colors[38] = '#568203';
                 // Azure
-                colours[39] = '#007FFF';
+                colors[39] = '#007FFF';
                 // Azure mist/web
-                colours[40] = '#F0FFFF';
+                colors[40] = '#F0FFFF';
                 // Baby blue
-                colours[41] = '#89CFF0';
+                colors[41] = '#89CFF0';
                 // Baby blue eyes
-                colours[42] = '#A1CAF1';
+                colors[42] = '#A1CAF1';
                 // Baby pink
-                colours[43] = '#F4C2C2';
+                colors[43] = '#F4C2C2';
                 // Baby powder
-                colours[44] = '#FEFEFA';
+                colors[44] = '#FEFEFA';
                 // Baker-Miller pink
-                colours[45] = '#FF91AF';
+                colors[45] = '#FF91AF';
                 // Ball blue
-                colours[46] = '#21ABCD';
+                colors[46] = '#21ABCD';
                 // Banana Mania
-                colours[47] = '#FAE7B5';
+                colors[47] = '#FAE7B5';
                 // Banana yellow
-                colours[48] = '#FFE135';
+                colors[48] = '#FFE135';
                 // Barbie pink
-                colours[49] = '#E0218A';
+                colors[49] = '#E0218A';
                 // Barn red
-                colours[50] = '#7C0A02';
+                colors[50] = '#7C0A02';
                 // Battleship grey
-                colours[51] = '#848482';
+                colors[51] = '#848482';
                 // Bazaar
-                colours[52] = '#98777B';
+                colors[52] = '#98777B';
                 // Beau blue
-                colours[53] = '#BCD4E6';
+                colors[53] = '#BCD4E6';
                 // Beaver
-                colours[54] = '#9F8170';
+                colors[54] = '#9F8170';
                 // Beige
-                colours[55] = '#F5F5DC';
+                colors[55] = '#F5F5DC';
                 // B'dazzled blue
-                colours[56] = '#2E5894';
+                colors[56] = '#2E5894';
                 // Big dip o'ruby
-                colours[57] = '#9C2542';
+                colors[57] = '#9C2542';
                 // Bisque
-                colours[58] = '#FFE4C4';
+                colors[58] = '#FFE4C4';
                 // Bistre
-                colours[59] = '#3D2B1F';
+                colors[59] = '#3D2B1F';
                 // Bistre brown
-                colours[60] = '#967117';
+                colors[60] = '#967117';
                 // Bitter lemon
-                colours[61] = '#CAE00D';
+                colors[61] = '#CAE00D';
                 // Bitter lime
-                colours[62] = '#BFFF00';
+                colors[62] = '#BFFF00';
                 // Bittersweet
-                colours[63] = '#FE6F5E';
+                colors[63] = '#FE6F5E';
                 // Bittersweet shimmer
-                colours[64] = '#BF4F51';
+                colors[64] = '#BF4F51';
                 // Black
-                colours[65] = '#000000';
+                colors[65] = '#000000';
                 // Black bean
-                colours[66] = '#3D0C02';
+                colors[66] = '#3D0C02';
                 // Black leather jacket
-                colours[67] = '#253529';
+                colors[67] = '#253529';
                 // Black olive
-                colours[68] = '#3B3C36';
+                colors[68] = '#3B3C36';
                 // Blanched almond
-                colours[69] = '#FFEBCD';
+                colors[69] = '#FFEBCD';
                 // Blast-off bronze
-                colours[70] = '#A57164';
+                colors[70] = '#A57164';
                 // Bleu de France
-                colours[71] = '#318CE7';
+                colors[71] = '#318CE7';
                 // Blizzard Blue
-                colours[72] = '#ACE5EE';
+                colors[72] = '#ACE5EE';
                 // Blond
-                colours[73] = '#FAF0BE';
+                colors[73] = '#FAF0BE';
                 // Blue
-                colours[74] = '#0000FF';
+                colors[74] = '#0000FF';
                 // Blue (Crayola)
-                colours[75] = '#1F75FE';
+                colors[75] = '#1F75FE';
                 // Blue (Munsell)
-                colours[76] = '#0093AF';
+                colors[76] = '#0093AF';
                 // Blue (NCS)
-                colours[77] = '#0087BD';
+                colors[77] = '#0087BD';
                 // Blue (pigment)
-                colours[78] = '#333399';
+                colors[78] = '#333399';
                 // Blue (RYB)
-                colours[79] = '#0247FE';
+                colors[79] = '#0247FE';
                 // Blue Bell
-                colours[80] = '#A2A2D0';
+                colors[80] = '#A2A2D0';
                 // Blue-gray
-                colours[81] = '#6699CC';
+                colors[81] = '#6699CC';
                 // Blue-green
-                colours[82] = '#0D98BA';
+                colors[82] = '#0D98BA';
                 // Blue sapphire
-                colours[83] = '#126180';
+                colors[83] = '#126180';
                 // Blue-violet
-                colours[84] = '#8A2BE2';
+                colors[84] = '#8A2BE2';
                 // Blue yonder
-                colours[85] = '#5072A7';
+                colors[85] = '#5072A7';
                 // Blueberry
-                colours[86] = '#4F86F7';
+                colors[86] = '#4F86F7';
                 // Bluebonnet
-                colours[87] = '#1C1CF0';
+                colors[87] = '#1C1CF0';
                 // Blush
-                colours[88] = '#DE5D83';
+                colors[88] = '#DE5D83';
                 // Bole
-                colours[89] = '#79443B';
+                colors[89] = '#79443B';
                 // Bondi blue
-                colours[90] = '#0095B6';
+                colors[90] = '#0095B6';
                 // Bone
-                colours[91] = '#E3DAC9';
+                colors[91] = '#E3DAC9';
                 // Boston University Red
-                colours[92] = '#CC0000';
+                colors[92] = '#CC0000';
                 // Bottle green
-                colours[93] = '#006A4E';
+                colors[93] = '#006A4E';
                 // Boysenberry
-                colours[94] = '#873260';
+                colors[94] = '#873260';
                 // Brandeis blue
-                colours[95] = '#0070FF';
+                colors[95] = '#0070FF';
                 // Brass
-                colours[96] = '#B5A642';
+                colors[96] = '#B5A642';
                 // Brick red
-                colours[97] = '#CB4154';
+                colors[97] = '#CB4154';
                 // Bright cerulean
-                colours[98] = '#1DACD6';
+                colors[98] = '#1DACD6';
                 // Bright green
-                colours[99] = '#66FF00';
+                colors[99] = '#66FF00';
                 // Bright lavender
-                colours[100] = '#BF94E4';
+                colors[100] = '#BF94E4';
                 // Bright maroon
-                colours[101] = '#C32148';
+                colors[101] = '#C32148';
                 // Bright navy blue
-                colours[102] = '#1974D2';
+                colors[102] = '#1974D2';
                 // Bright pink
-                colours[103] = '#FF007F';
+                colors[103] = '#FF007F';
                 // Bright turquoise
-                colours[104] = '#08E8DE';
+                colors[104] = '#08E8DE';
                 // Bright ube
-                colours[105] = '#D19FE8';
+                colors[105] = '#D19FE8';
                 // Brilliant lavender
-                colours[106] = '#F4BBFF';
+                colors[106] = '#F4BBFF';
                 // Brilliant rose
-                colours[107] = '#FF55A3';
+                colors[107] = '#FF55A3';
                 // Brink pink
-                colours[108] = '#FB607F';
+                colors[108] = '#FB607F';
                 // British racing green
-                colours[109] = '#004225';
+                colors[109] = '#004225';
                 // Bronze
-                colours[110] = '#CD7F32';
+                colors[110] = '#CD7F32';
                 // Bronze Yellow
-                colours[111] = '#737000';
+                colors[111] = '#737000';
                 // Brown (traditional)
-                colours[112] = '#964B00';
+                colors[112] = '#964B00';
                 // Brown (web)
-                colours[113] = '#A52A2A';
+                colors[113] = '#A52A2A';
                 // Brown-nose
-                colours[114] = '#6B4423';
+                colors[114] = '#6B4423';
                 // Brunswick green
-                colours[115] = '#1B4D3E';
+                colors[115] = '#1B4D3E';
                 // Bubble gum
-                colours[116] = '#FFC1CC';
+                colors[116] = '#FFC1CC';
                 // Bubbles
-                colours[117] = '#E7FEFF';
+                colors[117] = '#E7FEFF';
                 // Buff
-                colours[118] = '#F0DC82';
+                colors[118] = '#F0DC82';
                 // Bud green
-                colours[119] = '#7BB661';
+                colors[119] = '#7BB661';
                 // Bulgarian rose
-                colours[120] = '#480607';
+                colors[120] = '#480607';
                 // Burgundy
-                colours[121] = '#800020';
+                colors[121] = '#800020';
                 // Burlywood
-                colours[122] = '#DEB887';
+                colors[122] = '#DEB887';
                 // Burnt orange
-                colours[123] = '#CC5500';
+                colors[123] = '#CC5500';
                 // Burnt sienna
-                colours[124] = '#E97451';
+                colors[124] = '#E97451';
                 // Burnt umber
-                colours[125] = '#8A3324';
+                colors[125] = '#8A3324';
                 // Byzantine
-                colours[126] = '#BD33A4';
+                colors[126] = '#BD33A4';
                 // Byzantium
-                colours[127] = '#702963';
+                colors[127] = '#702963';
                 // Cadet
-                colours[128] = '#536872';
+                colors[128] = '#536872';
                 // Cadet blue
-                colours[129] = '#5F9EA0';
+                colors[129] = '#5F9EA0';
                 // Cadet grey
-                colours[130] = '#91A3B0';
+                colors[130] = '#91A3B0';
                 // Cadmium green
-                colours[131] = '#006B3C';
+                colors[131] = '#006B3C';
                 // Cadmium orange
-                colours[132] = '#ED872D';
+                colors[132] = '#ED872D';
                 // Cadmium red
-                colours[133] = '#E30022';
+                colors[133] = '#E30022';
                 // Cadmium yellow
-                colours[134] = '#FFF600';
+                colors[134] = '#FFF600';
                 // Cafe au lait
-                colours[135] = '#A67B5B';
+                colors[135] = '#A67B5B';
                 // Cafe noir
-                colours[136] = '#4B3621';
+                colors[136] = '#4B3621';
                 // Cal Poly green
-                colours[137] = '#1E4D2B';
+                colors[137] = '#1E4D2B';
                 // Cambridge Blue
-                colours[138] = '#A3C1AD';
+                colors[138] = '#A3C1AD';
                 // Camel
-                colours[139] = '#C19A6B';
+                colors[139] = '#C19A6B';
                 // Cameo pink
-                colours[140] = '#EFBBCC';
+                colors[140] = '#EFBBCC';
                 // Camouflage green
-                colours[141] = '#78866B';
+                colors[141] = '#78866B';
                 // Canary yellow
-                colours[142] = '#FFEF00';
+                colors[142] = '#FFEF00';
                 // Candy apple red
-                colours[143] = '#FF0800';
+                colors[143] = '#FF0800';
                 // Candy pink
-                colours[144] = '#E4717A';
+                colors[144] = '#E4717A';
                 // Capri
-                colours[145] = '#00BFFF';
+                colors[145] = '#00BFFF';
                 // Caput mortuum
-                colours[146] = '#592720';
+                colors[146] = '#592720';
                 // Cardinal
-                colours[147] = '#C41E3A';
+                colors[147] = '#C41E3A';
                 // Caribbean green
-                colours[148] = '#00CC99';
+                colors[148] = '#00CC99';
                 // Carmine
-                colours[149] = '#960018';
+                colors[149] = '#960018';
                 // Carmine (M&P)
-                colours[150] = '#D70040';
+                colors[150] = '#D70040';
                 // Carmine pink
-                colours[151] = '#EB4C42';
+                colors[151] = '#EB4C42';
                 // Air Force blue (RAF)
-                colours[152] = '#5D8AA8';
+                colors[152] = '#5D8AA8';
                 // Carnation pink
-                colours[153] = '#FFA6C9';
+                colors[153] = '#FFA6C9';
                 // Carnelian
-                colours[154] = '#B31B1B';
+                colors[154] = '#B31B1B';
                 // Carolina blue
-                colours[155] = '#99BADD';
+                colors[155] = '#99BADD';
                 // Carrot orange
-                colours[156] = '#ED9121';
+                colors[156] = '#ED9121';
                 // Castleton green
-                colours[157] = '#00563F';
+                colors[157] = '#00563F';
                 // Catalina blue
-                colours[158] = '#062A78';
+                colors[158] = '#062A78';
                 // Catawba
-                colours[159] = '#703642';
+                colors[159] = '#703642';
                 // Cedar Chest
-                colours[160] = '#C95A49';
+                colors[160] = '#C95A49';
                 // Ceil
-                colours[161] = '#92A1CF';
+                colors[161] = '#92A1CF';
                 // Celadon
-                colours[162] = '#ACE1AF';
+                colors[162] = '#ACE1AF';
                 // Celadon blue
-                colours[163] = '#007BA7';
+                colors[163] = '#007BA7';
                 // Celadon green
-                colours[164] = '#2F847C';
-                // Celeste (colour)
-                colours[165] = '#B2FFFF';
+                colors[164] = '#2F847C';
+                // Celeste (color)
+                colors[165] = '#B2FFFF';
                 // Celestial blue
-                colours[166] = '#4997D0';
+                colors[166] = '#4997D0';
                 // Cerise
-                colours[167] = '#DE3163';
+                colors[167] = '#DE3163';
                 // Cerise pink
-                colours[168] = '#EC3B83';
+                colors[168] = '#EC3B83';
                 // Cerulean
-                colours[169] = '#007BA7';
+                colors[169] = '#007BA7';
                 // Cerulean blue
-                colours[170] = '#2A52BE';
+                colors[170] = '#2A52BE';
                 // Cerulean frost
-                colours[171] = '#6D9BC3';
+                colors[171] = '#6D9BC3';
                 // CG Blue
-                colours[172] = '#007AA5';
+                colors[172] = '#007AA5';
                 // CG Red
-                colours[173] = '#E03C31';
+                colors[173] = '#E03C31';
                 // Chamoisee
-                colours[174] = '#A0785A';
+                colors[174] = '#A0785A';
                 // Champagne
-                colours[175] = '#F7E7CE';
+                colors[175] = '#F7E7CE';
                 // Charcoal
-                colours[176] = '#36454F';
+                colors[176] = '#36454F';
                 // Charleston green
-                colours[177] = '#232B2B';
+                colors[177] = '#232B2B';
                 // Charm pink
-                colours[178] = '#E68FAC';
+                colors[178] = '#E68FAC';
                 // Chartreuse (traditional)
-                colours[179] = '#DFFF00';
+                colors[179] = '#DFFF00';
                 // Chartreuse (web)
-                colours[180] = '#7FFF00';
+                colors[180] = '#7FFF00';
                 // Cherry
-                colours[181] = '#DE3163';
+                colors[181] = '#DE3163';
                 // Cherry blossom pink
-                colours[182] = '#FFB7C5';
+                colors[182] = '#FFB7C5';
                 // Chestnut
-                colours[183] = '#954535';
+                colors[183] = '#954535';
                 // China pink
-                colours[184] = '#DE6FA1';
+                colors[184] = '#DE6FA1';
                 // China rose
-                colours[185] = '#A8516E';
+                colors[185] = '#A8516E';
                 // Chinese red
-                colours[186] = '#AA381E';
+                colors[186] = '#AA381E';
                 // Chinese violet
-                colours[187] = '#856088';
+                colors[187] = '#856088';
                 // Chocolate (traditional)
-                colours[188] = '#7B3F00';
+                colors[188] = '#7B3F00';
                 // Chocolate (web)
-                colours[189] = '#D2691E';
+                colors[189] = '#D2691E';
                 // Chrome yellow
-                colours[190] = '#FFA700';
+                colors[190] = '#FFA700';
                 // Cinereous
-                colours[191] = '#98817B';
+                colors[191] = '#98817B';
                 // Cinnabar
-                colours[192] = '#E34234';
+                colors[192] = '#E34234';
                 // Cinnamon
-                colours[193] = '#D2691E';
+                colors[193] = '#D2691E';
                 // Citrine
-                colours[194] = '#E4D00A';
+                colors[194] = '#E4D00A';
                 // Citron
-                colours[195] = '#9FA91F';
+                colors[195] = '#9FA91F';
                 // Claret
-                colours[196] = '#7F1734';
+                colors[196] = '#7F1734';
                 // Classic rose
-                colours[197] = '#FBCCE7';
+                colors[197] = '#FBCCE7';
                 // Cobalt
-                colours[198] = '#0047AB';
+                colors[198] = '#0047AB';
                 // Cocoa brown
-                colours[199] = '#D2691E';
+                colors[199] = '#D2691E';
                 // Coconut
-                colours[200] = '#965A3E';
+                colors[200] = '#965A3E';
                 // Coffee
-                colours[201] = '#6F4E37';
+                colors[201] = '#6F4E37';
                 // Columbia blue
-                colours[202] = '#9BDDFF';
+                colors[202] = '#9BDDFF';
                 // Congo pink
-                colours[203] = '#F88379';
+                colors[203] = '#F88379';
                 // Cool black
-                colours[204] = '#002E63';
+                colors[204] = '#002E63';
                 // Cool grey
-                colours[205] = '#8C92AC';
+                colors[205] = '#8C92AC';
                 // Copper
-                colours[206] = '#B87333';
+                colors[206] = '#B87333';
                 // Copper (Crayola)
-                colours[207] = '#DA8A67';
+                colors[207] = '#DA8A67';
                 // Copper penny
-                colours[208] = '#AD6F69';
+                colors[208] = '#AD6F69';
                 // Copper red
-                colours[209] = '#CB6D51';
+                colors[209] = '#CB6D51';
                 // Copper rose
-                colours[210] = '#996666';
+                colors[210] = '#996666';
                 // Coquelicot
-                colours[211] = '#FF3800';
+                colors[211] = '#FF3800';
                 // Coral
-                colours[212] = '#FF7F50';
+                colors[212] = '#FF7F50';
                 // Coral pink
-                colours[213] = '#F88379';
+                colors[213] = '#F88379';
                 // Coral red
-                colours[214] = '#FF4040';
+                colors[214] = '#FF4040';
                 // Cordovan
-                colours[215] = '#893F45';
+                colors[215] = '#893F45';
                 // Corn
-                colours[216] = '#FBEC5D';
+                colors[216] = '#FBEC5D';
                 // Cornell Red
-                colours[217] = '#B31B1B';
+                colors[217] = '#B31B1B';
                 // Cornflower blue
-                colours[218] = '#6495ED';
+                colors[218] = '#6495ED';
                 // Cornsilk
-                colours[219] = '#FFF8DC';
+                colors[219] = '#FFF8DC';
                 // Cosmic latte
-                colours[220] = '#FFF8E7';
+                colors[220] = '#FFF8E7';
                 // Cotton candy
-                colours[221] = '#FFBCD9';
+                colors[221] = '#FFBCD9';
                 // Cream
-                colours[222] = '#FFFDD0';
+                colors[222] = '#FFFDD0';
                 // Crimson
-                colours[223] = '#DC143C';
+                colors[223] = '#DC143C';
                 // Crimson glory
-                colours[224] = '#BE0032';
+                colors[224] = '#BE0032';
                 // Cyan
-                colours[225] = '#00FFFF';
+                colors[225] = '#00FFFF';
                 // Cyan (process)
-                colours[226] = '#00B7EB';
+                colors[226] = '#00B7EB';
                 // Cyber grape
-                colours[227] = '#58427C';
+                colors[227] = '#58427C';
                 // Cyber yellow
-                colours[228] = '#FFD300';
+                colors[228] = '#FFD300';
                 // Daffodil
-                colours[229] = '#FFFF31';
+                colors[229] = '#FFFF31';
                 // Dandelion
-                colours[230] = '#F0E130';
+                colors[230] = '#F0E130';
                 // Dark blue
-                colours[231] = '#00008B';
+                colors[231] = '#00008B';
                 // Dark blue-gray
-                colours[232] = '#666699';
+                colors[232] = '#666699';
                 // Dark brown
-                colours[233] = '#654321';
+                colors[233] = '#654321';
                 // Dark byzantium
-                colours[234] = '#5D3954';
+                colors[234] = '#5D3954';
                 // Dark candy apple red
-                colours[235] = '#A40000';
+                colors[235] = '#A40000';
                 // Dark cerulean
-                colours[236] = '#08457E';
+                colors[236] = '#08457E';
                 // Dark chestnut
-                colours[237] = '#986960';
+                colors[237] = '#986960';
                 // Dark coral
-                colours[238] = '#CD5B45';
+                colors[238] = '#CD5B45';
                 // Dark cyan
-                colours[239] = '#008B8B';
+                colors[239] = '#008B8B';
                 // Dark electric blue
-                colours[240] = '#536878';
+                colors[240] = '#536878';
                 // Dark goldenrod
-                colours[241] = '#B8860B';
+                colors[241] = '#B8860B';
                 // Dark gray
-                colours[242] = '#A9A9A9';
+                colors[242] = '#A9A9A9';
                 // Dark green
-                colours[243] = '#013220';
+                colors[243] = '#013220';
                 // Dark imperial blue
-                colours[244] = '#00416A';
+                colors[244] = '#00416A';
                 // Dark jungle green
-                colours[245] = '#1A2421';
+                colors[245] = '#1A2421';
                 // Dark khaki
-                colours[246] = '#BDB76B';
+                colors[246] = '#BDB76B';
                 // Dark lava
-                colours[247] = '#483C32';
+                colors[247] = '#483C32';
                 // Dark lavender
-                colours[248] = '#734F96';
+                colors[248] = '#734F96';
                 // Dark liver
-                colours[249] = '#534B4F';
+                colors[249] = '#534B4F';
                 // Dark liver (horses)
-                colours[250] = '#543D37';
+                colors[250] = '#543D37';
                 // Dark magenta
-                colours[251] = '#8B008B';
+                colors[251] = '#8B008B';
                 // Dark midnight blue
-                colours[252] = '#003366';
+                colors[252] = '#003366';
                 // Dark moss green
-                colours[253] = '#4A5D23';
+                colors[253] = '#4A5D23';
                 // Dark olive green
-                colours[254] = '#556B2F';
+                colors[254] = '#556B2F';
                 // Dark orange
-                colours[255] = '#FF8C00';
+                colors[255] = '#FF8C00';
                 // Dark orchid
-                colours[256] = '#9932CC';
+                colors[256] = '#9932CC';
                 // Dark pastel blue
-                colours[257] = '#779ECB';
+                colors[257] = '#779ECB';
                 // Dark pastel green
-                colours[258] = '#03C03C';
+                colors[258] = '#03C03C';
                 // Dark pastel purple
-                colours[259] = '#966FD6';
+                colors[259] = '#966FD6';
                 // Dark pastel red
-                colours[260] = '#C23B22';
+                colors[260] = '#C23B22';
                 // Dark pink
-                colours[261] = '#E75480';
+                colors[261] = '#E75480';
                 // Dark powder blue
-                colours[262] = '#003399';
+                colors[262] = '#003399';
                 // Dark raspberry
-                colours[263] = '#872657';
+                colors[263] = '#872657';
                 // Dark red
-                colours[264] = '#8B0000';
+                colors[264] = '#8B0000';
                 // Dark salmon
-                colours[265] = '#E9967A';
+                colors[265] = '#E9967A';
                 // Dark scarlet
-                colours[266] = '#560319';
+                colors[266] = '#560319';
                 // Dark sea green
-                colours[267] = '#8FBC8F';
+                colors[267] = '#8FBC8F';
                 // Dark sienna
-                colours[268] = '#3C1414';
+                colors[268] = '#3C1414';
                 // Dark sky blue
-                colours[269] = '#8CBED6';
+                colors[269] = '#8CBED6';
                 // Dark slate blue
-                colours[270] = '#483D8B';
+                colors[270] = '#483D8B';
                 // Dark slate gray
-                colours[271] = '#2F4F4F';
+                colors[271] = '#2F4F4F';
                 // Dark spring green
-                colours[272] = '#177245';
+                colors[272] = '#177245';
                 // Dark tan
-                colours[273] = '#918151';
+                colors[273] = '#918151';
                 // Dark tangerine
-                colours[274] = '#FFA812';
+                colors[274] = '#FFA812';
                 // Dark taupe
-                colours[275] = '#483C32';
+                colors[275] = '#483C32';
                 // Dark terra cotta
-                colours[276] = '#CC4E5C';
+                colors[276] = '#CC4E5C';
                 // Dark turquoise
-                colours[277] = '#00CED1';
+                colors[277] = '#00CED1';
                 // Dark vanilla
-                colours[278] = '#D1BEA8';
+                colors[278] = '#D1BEA8';
                 // Dark violet
-                colours[279] = '#9400D3';
+                colors[279] = '#9400D3';
                 // Dark yellow
-                colours[280] = '#9B870C';
+                colors[280] = '#9B870C';
                 // Dartmouth green
-                colours[281] = '#00703C';
+                colors[281] = '#00703C';
                 // Davy's grey
-                colours[282] = '#555555';
+                colors[282] = '#555555';
                 // Debian red
-                colours[283] = '#D70A53';
+                colors[283] = '#D70A53';
                 // Deep carmine
-                colours[284] = '#A9203E';
+                colors[284] = '#A9203E';
                 // Deep carmine pink
-                colours[285] = '#EF3038';
+                colors[285] = '#EF3038';
                 // Deep carrot orange
-                colours[286] = '#E9692C';
+                colors[286] = '#E9692C';
                 // Deep cerise
-                colours[287] = '#DA3287';
+                colors[287] = '#DA3287';
                 // Deep champagne
-                colours[288] = '#FAD6A5';
+                colors[288] = '#FAD6A5';
                 // Deep chestnut
-                colours[289] = '#B94E48';
+                colors[289] = '#B94E48';
                 // Deep coffee
-                colours[290] = '#704241';
+                colors[290] = '#704241';
                 // Deep fuchsia
-                colours[291] = '#C154C1';
+                colors[291] = '#C154C1';
                 // Deep jungle green
-                colours[292] = '#004B49';
+                colors[292] = '#004B49';
                 // Deep lemon
-                colours[293] = '#F5C71A';
+                colors[293] = '#F5C71A';
                 // Deep lilac
-                colours[294] = '#9955BB';
+                colors[294] = '#9955BB';
                 // Deep magenta
-                colours[295] = '#CC00CC';
+                colors[295] = '#CC00CC';
                 // Deep mauve
-                colours[296] = '#D473D4';
+                colors[296] = '#D473D4';
                 // Deep moss green
-                colours[297] = '#355E3B';
+                colors[297] = '#355E3B';
                 // Deep peach
-                colours[298] = '#FFCBA4';
+                colors[298] = '#FFCBA4';
                 // Deep pink
-                colours[299] = '#FF1493';
+                colors[299] = '#FF1493';
                 // Deep ruby
-                colours[300] = '#843F5B';
+                colors[300] = '#843F5B';
                 // Deep saffron
-                colours[301] = '#FF9933';
+                colors[301] = '#FF9933';
                 // Deep sky blue
-                colours[302] = '#00BFFF';
+                colors[302] = '#00BFFF';
                 // Deep Space Sparkle
-                colours[303] = '#4A646C';
+                colors[303] = '#4A646C';
                 // Deep Taupe
-                colours[304] = '#7E5E60';
+                colors[304] = '#7E5E60';
                 // Deep Tuscan red
-                colours[305] = '#66424D';
+                colors[305] = '#66424D';
                 // Deer
-                colours[306] = '#BA8759';
+                colors[306] = '#BA8759';
                 // Denim
-                colours[307] = '#1560BD';
+                colors[307] = '#1560BD';
                 // Desert
-                colours[308] = '#C19A6B';
+                colors[308] = '#C19A6B';
                 // Desert sand
-                colours[309] = '#EDC9AF';
+                colors[309] = '#EDC9AF';
                 // Diamond
-                colours[310] = '#B9F2FF';
+                colors[310] = '#B9F2FF';
                 // Dim gray
-                colours[311] = '#696969';
+                colors[311] = '#696969';
                 // Dirt
-                colours[312] = '#9B7653';
+                colors[312] = '#9B7653';
                 // Dodger blue
-                colours[313] = '#1E90FF';
+                colors[313] = '#1E90FF';
                 // Dogwood rose
-                colours[314] = '#D71868';
+                colors[314] = '#D71868';
                 // Dollar bill
-                colours[315] = '#85BB65';
+                colors[315] = '#85BB65';
                 // Donkey Brown
-                colours[316] = '#664C28';
+                colors[316] = '#664C28';
                 // Drab
-                colours[317] = '#967117';
+                colors[317] = '#967117';
                 // Duke blue
-                colours[318] = '#00009C';
+                colors[318] = '#00009C';
                 // Dust storm
-                colours[319] = '#E5CCC9';
+                colors[319] = '#E5CCC9';
                 // Earth yellow
-                colours[320] = '#E1A95F';
+                colors[320] = '#E1A95F';
                 // Ebony
-                colours[321] = '#555D50';
+                colors[321] = '#555D50';
                 // Ecru
-                colours[322] = '#C2B280';
+                colors[322] = '#C2B280';
                 // Eggplant
-                colours[323] = '#614051';
+                colors[323] = '#614051';
                 // Eggshell
-                colours[324] = '#F0EAD6';
+                colors[324] = '#F0EAD6';
                 // Egyptian blue
-                colours[325] = '#1034A6';
+                colors[325] = '#1034A6';
                 // Electric blue
-                colours[326] = '#7DF9FF';
+                colors[326] = '#7DF9FF';
                 // Electric crimson
-                colours[327] = '#FF003F';
+                colors[327] = '#FF003F';
                 // Electric cyan
-                colours[328] = '#00FFFF';
+                colors[328] = '#00FFFF';
                 // Electric green
-                colours[329] = '#00FF00';
+                colors[329] = '#00FF00';
                 // Electric indigo
-                colours[330] = '#6F00FF';
+                colors[330] = '#6F00FF';
                 // Electric lavender
-                colours[331] = '#F4BBFF';
+                colors[331] = '#F4BBFF';
                 // Electric lime
-                colours[332] = '#CCFF00';
+                colors[332] = '#CCFF00';
                 // Air superiority blue
-                colours[333] = '#72A0C1';
+                colors[333] = '#72A0C1';
                 // Electric ultramarine
-                colours[334] = '#3F00FF';
+                colors[334] = '#3F00FF';
                 // Electric violet
-                colours[335] = '#8F00FF';
+                colors[335] = '#8F00FF';
                 // Electric yellow
-                colours[336] = '#FFFF33';
+                colors[336] = '#FFFF33';
                 // Emerald
-                colours[337] = '#50C878';
+                colors[337] = '#50C878';
                 // English green
-                colours[338] = '#1B4D3E';
+                colors[338] = '#1B4D3E';
                 // English lavender
-                colours[339] = '#B48395';
+                colors[339] = '#B48395';
                 // English red
-                colours[340] = '#AB4B52';
+                colors[340] = '#AB4B52';
                 // English violet
-                colours[341] = '#563C5C';
+                colors[341] = '#563C5C';
                 // Eton blue
-                colours[342] = '#96C8A2';
+                colors[342] = '#96C8A2';
                 // Eucalyptus
-                colours[343] = '#44D7A8';
+                colors[343] = '#44D7A8';
                 // Fallow
-                colours[344] = '#C19A6B';
+                colors[344] = '#C19A6B';
                 // Falu red
-                colours[345] = '#801818';
+                colors[345] = '#801818';
                 // Fandango
-                colours[346] = '#B53389';
+                colors[346] = '#B53389';
                 // Fandango pink
-                colours[347] = '#DE5285';
+                colors[347] = '#DE5285';
                 // Fashion fuchsia
-                colours[348] = '#F400A1';
+                colors[348] = '#F400A1';
                 // Fawn
-                colours[349] = '#E5AA70';
+                colors[349] = '#E5AA70';
                 // Feldgrau
-                colours[350] = '#4D5D53';
+                colors[350] = '#4D5D53';
                 // Feldspar
-                colours[351] = '#FDD5B1';
+                colors[351] = '#FDD5B1';
                 // Fern green
-                colours[352] = '#4F7942';
+                colors[352] = '#4F7942';
                 // Ferrari Red
-                colours[353] = '#FF2800';
+                colors[353] = '#FF2800';
                 // Field drab
-                colours[354] = '#6C541E';
+                colors[354] = '#6C541E';
                 // Firebrick
-                colours[355] = '#B22222';
+                colors[355] = '#B22222';
                 // Fire engine red
-                colours[356] = '#CE2029';
+                colors[356] = '#CE2029';
                 // Flame
-                colours[357] = '#E25822';
+                colors[357] = '#E25822';
                 // Flamingo pink
-                colours[358] = '#FC8EAC';
+                colors[358] = '#FC8EAC';
                 // Flattery
-                colours[359] = '#6B4423';
+                colors[359] = '#6B4423';
                 // Flavescent
-                colours[360] = '#F7E98E';
+                colors[360] = '#F7E98E';
                 // Flax
-                colours[361] = '#EEDC82';
+                colors[361] = '#EEDC82';
                 // Flirt
-                colours[362] = '#A2006D';
+                colors[362] = '#A2006D';
                 // Mughal green
-                colours[363] = '#306030';
+                colors[363] = '#306030';
                 // Fluorescent orange
-                colours[364] = '#FFBF00';
+                colors[364] = '#FFBF00';
                 // Fluorescent pink
-                colours[365] = '#FF1493';
+                colors[365] = '#FF1493';
                 // Fluorescent yellow
-                colours[366] = '#CCFF00';
+                colors[366] = '#CCFF00';
                 // Folly
-                colours[367] = '#FF004F';
+                colors[367] = '#FF004F';
                 // Forest green (traditional)
-                colours[368] = '#014421';
+                colors[368] = '#014421';
                 // Forest green (web)
-                colours[369] = '#228B22';
+                colors[369] = '#228B22';
                 // French beige
-                colours[370] = '#A67B5B';
+                colors[370] = '#A67B5B';
                 // French bistre
-                colours[371] = '#856D4D';
+                colors[371] = '#856D4D';
                 // French blue
-                colours[372] = '#0072BB';
+                colors[372] = '#0072BB';
                 // French lilac
-                colours[373] = '#86608E';
+                colors[373] = '#86608E';
                 // French lime
-                colours[374] = '#9EFD38';
+                colors[374] = '#9EFD38';
                 // French mauve
-                colours[375] = '#D473D4';
+                colors[375] = '#D473D4';
                 // French raspberry
-                colours[376] = '#C72C48';
+                colors[376] = '#C72C48';
                 // French rose
-                colours[377] = '#F64A8A';
+                colors[377] = '#F64A8A';
                 // French sky blue
-                colours[378] = '#77B5FE';
+                colors[378] = '#77B5FE';
                 // French wine
-                colours[379] = '#AC1E44';
+                colors[379] = '#AC1E44';
                 // Fresh Air
-                colours[380] = '#A6E7FF';
+                colors[380] = '#A6E7FF';
                 // Fuchsia
-                colours[381] = '#FF00FF';
+                colors[381] = '#FF00FF';
                 // Fuchsia (Crayola)
-                colours[382] = '#C154C1';
+                colors[382] = '#C154C1';
                 // Fuchsia pink
-                colours[383] = '#FF77FF';
+                colors[383] = '#FF77FF';
                 // Fuchsia rose
-                colours[384] = '#C74375';
+                colors[384] = '#C74375';
                 // Fulvous
-                colours[385] = '#E48400';
+                colors[385] = '#E48400';
                 // Fuzzy Wuzzy
-                colours[386] = '#CC6666';
+                colors[386] = '#CC6666';
                 // Gainsboro
-                colours[387] = '#DCDCDC';
+                colors[387] = '#DCDCDC';
                 // Gamboge
-                colours[388] = '#E49B0F';
+                colors[388] = '#E49B0F';
                 // Generic viridian
-                colours[389] = '#007F66';
+                colors[389] = '#007F66';
                 // MSU Green
-                colours[390] = '#18453B';
+                colors[390] = '#18453B';
                 // Giants orange
-                colours[391] = '#FE5A1D';
+                colors[391] = '#FE5A1D';
                 // Ginger
-                colours[392] = '#B06500';
+                colors[392] = '#B06500';
                 // Glaucous
-                colours[393] = '#6082B6';
+                colors[393] = '#6082B6';
                 // Glitter
-                colours[394] = '#E6E8FA';
+                colors[394] = '#E6E8FA';
                 // GO green
-                colours[395] = '#00AB66';
+                colors[395] = '#00AB66';
                 // Gold (metallic)
-                colours[396] = '#D4AF37';
+                colors[396] = '#D4AF37';
                 // Gold (web) (Golden)
-                colours[397] = '#FFD700';
+                colors[397] = '#FFD700';
                 // Gold Fusion
-                colours[398] = '#85754E';
+                colors[398] = '#85754E';
                 // Golden brown
-                colours[399] = '#996515';
+                colors[399] = '#996515';
                 // Golden poppy
-                colours[400] = '#FCC200';
+                colors[400] = '#FCC200';
                 // Golden yellow
-                colours[401] = '#FFDF00';
+                colors[401] = '#FFDF00';
                 // Goldenrod
-                colours[402] = '#DAA520';
+                colors[402] = '#DAA520';
                 // Granny Smith Apple
-                colours[403] = '#A8E4A0';
+                colors[403] = '#A8E4A0';
                 // Grape
-                colours[404] = '#6F2DA8';
+                colors[404] = '#6F2DA8';
                 // Gray
-                colours[405] = '#808080';
+                colors[405] = '#808080';
                 // Gray (HTML/CSS gray)
-                colours[406] = '#808080';
+                colors[406] = '#808080';
                 // Gray (X11 gray)
-                colours[407] = '#BEBEBE';
+                colors[407] = '#BEBEBE';
                 // Gray-asparagus
-                colours[408] = '#465945';
+                colors[408] = '#465945';
                 // Gray-blue
-                colours[409] = '#8C92AC';
+                colors[409] = '#8C92AC';
                 // Green (color wheel) (X11 green)
-                colours[410] = '#00FF00';
+                colors[410] = '#00FF00';
                 // Green (Crayola)
-                colours[411] = '#1CAC78';
+                colors[411] = '#1CAC78';
                 // Green (HTML/CSS color)
-                colours[412] = '#008000';
+                colors[412] = '#008000';
                 // Green (Munsell)
-                colours[413] = '#00A877';
+                colors[413] = '#00A877';
                 // Green (NCS)
-                colours[414] = '#009F6B';
+                colors[414] = '#009F6B';
                 // Green (pigment)
-                colours[415] = '#00A550';
+                colors[415] = '#00A550';
                 // Green (RYB)
-                colours[416] = '#66B032';
+                colors[416] = '#66B032';
                 // Green-yellow
-                colours[417] = '#ADFF2F';
+                colors[417] = '#ADFF2F';
                 // Grullo
-                colours[418] = '#A99A86';
+                colors[418] = '#A99A86';
                 // Guppie green
-                colours[419] = '#00FF7F';
+                colors[419] = '#00FF7F';
                 // Halaya ube
-                colours[420] = '#663854';
+                colors[420] = '#663854';
                 // Han blue
-                colours[421] = '#446CCF';
+                colors[421] = '#446CCF';
                 // Han purple
-                colours[422] = '#5218FA';
+                colors[422] = '#5218FA';
                 // Hansa yellow
-                colours[423] = '#E9D66B';
+                colors[423] = '#E9D66B';
                 // Harlequin
-                colours[424] = '#3FFF00';
+                colors[424] = '#3FFF00';
                 // Harvard crimson
-                colours[425] = '#C90016';
+                colors[425] = '#C90016';
                 // Harvest gold
-                colours[426] = '#DA9100';
+                colors[426] = '#DA9100';
                 // Heart Gold
-                colours[427] = '#808000';
+                colors[427] = '#808000';
                 // Heliotrope
-                colours[428] = '#DF73FF';
+                colors[428] = '#DF73FF';
                 // Hollywood cerise
-                colours[429] = '#F400A1';
+                colors[429] = '#F400A1';
                 // Honeydew
-                colours[430] = '#F0FFF0';
+                colors[430] = '#F0FFF0';
                 // Honolulu blue
-                colours[431] = '#006DB0';
+                colors[431] = '#006DB0';
                 // Hooker's green
-                colours[432] = '#49796B';
+                colors[432] = '#49796B';
                 // Hot magenta
-                colours[433] = '#FF1DCE';
+                colors[433] = '#FF1DCE';
                 // Hot pink
-                colours[434] = '#FF69B4';
+                colors[434] = '#FF69B4';
                 // Hunter green
-                colours[435] = '#355E3B';
+                colors[435] = '#355E3B';
                 // Iceberg
-                colours[436] = '#71A6D2';
+                colors[436] = '#71A6D2';
                 // Icterine
-                colours[437] = '#FCF75E';
+                colors[437] = '#FCF75E';
                 // Illuminating Emerald
-                colours[438] = '#319177';
+                colors[438] = '#319177';
                 // Imperial
-                colours[439] = '#602F6B';
+                colors[439] = '#602F6B';
                 // Imperial blue
-                colours[440] = '#002395';
+                colors[440] = '#002395';
                 // Imperial purple
-                colours[441] = '#66023C';
+                colors[441] = '#66023C';
                 // Imperial red
-                colours[442] = '#ED2939';
+                colors[442] = '#ED2939';
                 // Inchworm
-                colours[443] = '#B2EC5D';
+                colors[443] = '#B2EC5D';
                 // Independence
-                colours[444] = '#4C516D';
+                colors[444] = '#4C516D';
                 // India green
-                colours[445] = '#138808';
+                colors[445] = '#138808';
                 // Indian red
-                colours[446] = '#CD5C5C';
+                colors[446] = '#CD5C5C';
                 // Indian yellow
-                colours[447] = '#E3A857';
+                colors[447] = '#E3A857';
                 // Indigo
-                colours[448] = '#6F00FF';
+                colors[448] = '#6F00FF';
                 // Indigo dye
-                colours[449] = '#091F92';
+                colors[449] = '#091F92';
                 // Indigo (web)
-                colours[450] = '#4B0082';
+                colors[450] = '#4B0082';
                 // International Klein Blue
-                colours[451] = '#002FA7';
+                colors[451] = '#002FA7';
                 // International orange (aerospace)
-                colours[452] = '#FF4F00';
+                colors[452] = '#FF4F00';
                 // International orange (engineering)
-                colours[453] = '#BA160C';
+                colors[453] = '#BA160C';
                 // International orange (Golden Gate Bridge)
-                colours[454] = '#C0362C';
+                colors[454] = '#C0362C';
                 // Iris
-                colours[455] = '#5A4FCF';
+                colors[455] = '#5A4FCF';
                 // Irresistible
-                colours[456] = '#B3446C';
+                colors[456] = '#B3446C';
                 // Isabelline
-                colours[457] = '#F4F0EC';
+                colors[457] = '#F4F0EC';
                 // Islamic green
-                colours[458] = '#009000';
+                colors[458] = '#009000';
                 // Italian sky blue
-                colours[459] = '#B2FFFF';
+                colors[459] = '#B2FFFF';
                 // Ivory
-                colours[460] = '#FFFFF0';
+                colors[460] = '#FFFFF0';
                 // Jade
-                colours[461] = '#00A86B';
+                colors[461] = '#00A86B';
                 // Japanese indigo
-                colours[462] = '#264348';
+                colors[462] = '#264348';
                 // Japanese violet
-                colours[463] = '#5B3256';
+                colors[463] = '#5B3256';
                 // Jasmine
-                colours[464] = '#F8DE7E';
+                colors[464] = '#F8DE7E';
                 // Jasper
-                colours[465] = '#D73B3E';
+                colors[465] = '#D73B3E';
                 // Jazzberry jam
-                colours[466] = '#A50B5E';
+                colors[466] = '#A50B5E';
                 // Jelly Bean
-                colours[467] = '#DA614E';
+                colors[467] = '#DA614E';
                 // Jet
-                colours[468] = '#343434';
+                colors[468] = '#343434';
                 // Jonquil
-                colours[469] = '#F4CA16';
+                colors[469] = '#F4CA16';
                 // June bud
-                colours[470] = '#BDDA57';
+                colors[470] = '#BDDA57';
                 // Jungle green
-                colours[471] = '#29AB87';
+                colors[471] = '#29AB87';
                 // Kelly green
-                colours[472] = '#4CBB17';
+                colors[472] = '#4CBB17';
                 // Kenyan copper
-                colours[473] = '#7C1C05';
+                colors[473] = '#7C1C05';
                 // Keppel
-                colours[474] = '#3AB09E';
+                colors[474] = '#3AB09E';
                 // Khaki (HTML/CSS) (Khaki)
-                colours[475] = '#C3B091';
+                colors[475] = '#C3B091';
                 // Khaki (X11) (Light khaki)
-                colours[476] = '#F0E68C';
+                colors[476] = '#F0E68C';
                 // Kobe
-                colours[477] = '#882D17';
+                colors[477] = '#882D17';
                 // Kobi
-                colours[478] = '#E79FC4';
+                colors[478] = '#E79FC4';
                 // Kombu green
-                colours[479] = '#354230';
+                colors[479] = '#354230';
                 // KU Crimson
-                colours[480] = '#E8000D';
+                colors[480] = '#E8000D';
                 // La Salle Green
-                colours[481] = '#087830';
+                colors[481] = '#087830';
                 // Languid lavender
-                colours[482] = '#D6CADD';
+                colors[482] = '#D6CADD';
                 // Lapis lazuli
-                colours[483] = '#26619C';
+                colors[483] = '#26619C';
                 // Laser Lemon
-                colours[484] = '#FFFF66';
+                colors[484] = '#FFFF66';
                 // Laurel green
-                colours[485] = '#A9BA9D';
+                colors[485] = '#A9BA9D';
                 // Lava
-                colours[486] = '#CF1020';
+                colors[486] = '#CF1020';
                 // Lavender (floral)
-                colours[487] = '#B57EDC';
+                colors[487] = '#B57EDC';
                 // Lavender (web)
-                colours[488] = '#E6E6FA';
+                colors[488] = '#E6E6FA';
                 // Lavender blue
-                colours[489] = '#CCCCFF';
+                colors[489] = '#CCCCFF';
                 // Lavender blush
-                colours[490] = '#FFF0F5';
+                colors[490] = '#FFF0F5';
                 // Lavender gray
-                colours[491] = '#C4C3D0';
+                colors[491] = '#C4C3D0';
                 // Lavender indigo
-                colours[492] = '#9457EB';
+                colors[492] = '#9457EB';
                 // Lavender magenta
-                colours[493] = '#EE82EE';
+                colors[493] = '#EE82EE';
                 // Lavender mist
-                colours[494] = '#E6E6FA';
+                colors[494] = '#E6E6FA';
                 // Lavender pink
-                colours[495] = '#FBAED2';
+                colors[495] = '#FBAED2';
                 // Lavender purple
-                colours[496] = '#967BB6';
+                colors[496] = '#967BB6';
                 // Lavender rose
-                colours[497] = '#FBA0E3';
+                colors[497] = '#FBA0E3';
                 // Lawn green
-                colours[498] = '#7CFC00';
+                colors[498] = '#7CFC00';
                 // Lemon
-                colours[499] = '#FFF700';
+                colors[499] = '#FFF700';
                 // Lemon chiffon
-                colours[500] = '#FFFACD';
+                colors[500] = '#FFFACD';
                 // Lemon curry
-                colours[501] = '#CCA01D';
+                colors[501] = '#CCA01D';
                 // Lemon glacier
-                colours[502] = '#FDFF00';
+                colors[502] = '#FDFF00';
                 // Lemon lime
-                colours[503] = '#E3FF00';
+                colors[503] = '#E3FF00';
                 // Lemon meringue
-                colours[504] = '#F6EABE';
+                colors[504] = '#F6EABE';
                 // Lemon yellow
-                colours[505] = '#FFF44F';
+                colors[505] = '#FFF44F';
                 // Licorice
-                colours[506] = '#1A1110';
+                colors[506] = '#1A1110';
                 // Liberty
-                colours[507] = '#545AA7';
+                colors[507] = '#545AA7';
                 // Light apricot
-                colours[508] = '#FDD5B1';
+                colors[508] = '#FDD5B1';
                 // Light blue
-                colours[509] = '#ADD8E6';
+                colors[509] = '#ADD8E6';
                 // Light brown
-                colours[510] = '#B5651D';
+                colors[510] = '#B5651D';
                 // Light carmine pink
-                colours[511] = '#E66771';
+                colors[511] = '#E66771';
                 // Light coral
-                colours[512] = '#F08080';
+                colors[512] = '#F08080';
                 // Light cornflower blue
-                colours[513] = '#93CCEA';
+                colors[513] = '#93CCEA';
                 // Light crimson
-                colours[514] = '#F56991';
+                colors[514] = '#F56991';
                 // Light cyan
-                colours[515] = '#E0FFFF';
+                colors[515] = '#E0FFFF';
                 // Light fuchsia pink
-                colours[516] = '#F984EF';
+                colors[516] = '#F984EF';
                 // Light goldenrod yellow
-                colours[517] = '#FAFAD2';
+                colors[517] = '#FAFAD2';
                 // Light gray
-                colours[518] = '#D3D3D3';
+                colors[518] = '#D3D3D3';
                 // Light green
-                colours[519] = '#90EE90';
+                colors[519] = '#90EE90';
                 // Light khaki
-                colours[520] = '#F0E68C';
+                colors[520] = '#F0E68C';
                 // Light medium orchid
-                colours[521] = '#D39BCB';
+                colors[521] = '#D39BCB';
                 // Light moss green
-                colours[522] = '#ADDFAD';
+                colors[522] = '#ADDFAD';
                 // Light orchid
-                colours[523] = '#E6A8D7';
+                colors[523] = '#E6A8D7';
                 // Light pastel purple
-                colours[524] = '#B19CD9';
+                colors[524] = '#B19CD9';
                 // Light pink
-                colours[525] = '#FFB6C1';
+                colors[525] = '#FFB6C1';
                 // Light red ochre
-                colours[526] = '#E97451';
+                colors[526] = '#E97451';
                 // Light salmon
-                colours[527] = '#FFA07A';
+                colors[527] = '#FFA07A';
                 // Light salmon pink
-                colours[528] = '#FF9999';
+                colors[528] = '#FF9999';
                 // Light sea green
-                colours[529] = '#20B2AA';
+                colors[529] = '#20B2AA';
                 // Light sky blue
-                colours[530] = '#87CEFA';
+                colors[530] = '#87CEFA';
                 // Light slate gray
-                colours[531] = '#778899';
+                colors[531] = '#778899';
                 // Light steel blue
-                colours[532] = '#B0C4DE';
+                colors[532] = '#B0C4DE';
                 // Light taupe
-                colours[533] = '#B38B6D';
+                colors[533] = '#B38B6D';
                 // Light Thulian pink
-                colours[534] = '#E68FAC';
+                colors[534] = '#E68FAC';
                 // Light yellow
-                colours[535] = '#FFFFE0';
+                colors[535] = '#FFFFE0';
                 // Lilac
-                colours[536] = '#C8A2C8';
+                colors[536] = '#C8A2C8';
                 // Lime (color wheel)
-                colours[537] = '#BFFF00';
+                colors[537] = '#BFFF00';
                 // Lime (web) (X11 green)
-                colours[538] = '#00FF00';
+                colors[538] = '#00FF00';
                 // Lime green
-                colours[539] = '#32CD32';
+                colors[539] = '#32CD32';
                 // Limerick
-                colours[540] = '#9DC209';
+                colors[540] = '#9DC209';
                 // Lincoln green
-                colours[541] = '#195905';
+                colors[541] = '#195905';
                 // Linen
-                colours[542] = '#FAF0E6';
+                colors[542] = '#FAF0E6';
                 // Lion
-                colours[543] = '#C19A6B';
+                colors[543] = '#C19A6B';
                 // Little boy blue
-                colours[544] = '#6CA0DC';
+                colors[544] = '#6CA0DC';
                 // Liver
-                colours[545] = '#674C47';
+                colors[545] = '#674C47';
                 // Liver (dogs)
-                colours[546] = '#B86D29';
+                colors[546] = '#B86D29';
                 // Liver (organ)
-                colours[547] = '#6C2E1F';
+                colors[547] = '#6C2E1F';
                 // Liver chestnut
-                colours[548] = '#987456';
+                colors[548] = '#987456';
                 // Lumber
-                colours[549] = '#FFE4CD';
+                colors[549] = '#FFE4CD';
                 // Lust
-                colours[550] = '#E62020';
+                colors[550] = '#E62020';
                 // Magenta
-                colours[551] = '#FF00FF';
+                colors[551] = '#FF00FF';
                 // Magenta (Crayola)
-                colours[552] = '#FF55A3';
+                colors[552] = '#FF55A3';
                 // Magenta (dye)
-                colours[553] = '#CA1F7B';
+                colors[553] = '#CA1F7B';
                 // Magenta (Pantone)
-                colours[554] = '#D0417E';
+                colors[554] = '#D0417E';
                 // Magenta (process)
-                colours[555] = '#FF0090';
+                colors[555] = '#FF0090';
                 // Magenta haze
-                colours[556] = '#9F4576';
+                colors[556] = '#9F4576';
                 // Magic mint
-                colours[557] = '#AAF0D1';
+                colors[557] = '#AAF0D1';
                 // Magnolia
-                colours[558] = '#F8F4FF';
+                colors[558] = '#F8F4FF';
                 // Mahogany
-                colours[559] = '#C04000';
+                colors[559] = '#C04000';
                 // Maize
-                colours[560] = '#FBEC5D';
+                colors[560] = '#FBEC5D';
                 // Majorelle Blue
-                colours[561] = '#6050DC';
+                colors[561] = '#6050DC';
                 // Malachite
-                colours[562] = '#0BDA51';
+                colors[562] = '#0BDA51';
                 // Manatee
-                colours[563] = '#979AAA';
+                colors[563] = '#979AAA';
                 // Mango Tango
-                colours[564] = '#FF8243';
+                colors[564] = '#FF8243';
                 // Mantis
-                colours[565] = '#74C365';
+                colors[565] = '#74C365';
                 // Mardi Gras
-                colours[566] = '#880085';
+                colors[566] = '#880085';
                 // Maroon (Crayola)
-                colours[567] = '#C32148';
+                colors[567] = '#C32148';
                 // Maroon (HTML/CSS)
-                colours[568] = '#800000';
+                colors[568] = '#800000';
                 // Maroon (X11)
-                colours[569] = '#B03060';
+                colors[569] = '#B03060';
                 // Mauve
-                colours[570] = '#E0B0FF';
+                colors[570] = '#E0B0FF';
                 // Mauve taupe
-                colours[571] = '#915F6D';
+                colors[571] = '#915F6D';
                 // Mauvelous
-                colours[572] = '#EF98AA';
+                colors[572] = '#EF98AA';
                 // Maya blue
-                colours[573] = '#73C2FB';
+                colors[573] = '#73C2FB';
                 // Meat brown
-                colours[574] = '#E5B73B';
+                colors[574] = '#E5B73B';
                 // Medium aquamarine
-                colours[575] = '#66DDAA';
+                colors[575] = '#66DDAA';
                 // Medium blue
-                colours[576] = '#0000CD';
+                colors[576] = '#0000CD';
                 // Medium candy apple red
-                colours[577] = '#E2062C';
+                colors[577] = '#E2062C';
                 // Medium carmine
-                colours[578] = '#AF4035';
+                colors[578] = '#AF4035';
                 // Medium champagne
-                colours[579] = '#F3E5AB';
+                colors[579] = '#F3E5AB';
                 // Medium electric blue
-                colours[580] = '#035096';
+                colors[580] = '#035096';
                 // Medium jungle green
-                colours[581] = '#1C352D';
+                colors[581] = '#1C352D';
                 // Medium lavender magenta
-                colours[582] = '#DDA0DD';
+                colors[582] = '#DDA0DD';
                 // Medium orchid
-                colours[583] = '#BA55D3';
+                colors[583] = '#BA55D3';
                 // Medium Persian blue
-                colours[584] = '#0067A5';
+                colors[584] = '#0067A5';
                 // Medium purple
-                colours[585] = '#9370DB';
+                colors[585] = '#9370DB';
                 // Medium red-violet
-                colours[586] = '#BB3385';
+                colors[586] = '#BB3385';
                 // Medium ruby
-                colours[587] = '#AA4069';
+                colors[587] = '#AA4069';
                 // Medium sea green
-                colours[588] = '#3CB371';
+                colors[588] = '#3CB371';
                 // Medium sky blue
-                colours[589] = '#80DAEB';
+                colors[589] = '#80DAEB';
                 // Medium slate blue
-                colours[590] = '#7B68EE';
+                colors[590] = '#7B68EE';
                 // Medium spring bud
-                colours[591] = '#C9DC87';
+                colors[591] = '#C9DC87';
                 // Medium spring green
-                colours[592] = '#00FA9A';
+                colors[592] = '#00FA9A';
                 // Medium taupe
-                colours[593] = '#674C47';
+                colors[593] = '#674C47';
                 // Medium turquoise
-                colours[594] = '#48D1CC';
+                colors[594] = '#48D1CC';
                 // Medium Tuscan red
-                colours[595] = '#79443B';
+                colors[595] = '#79443B';
                 // Medium vermilion
-                colours[596] = '#D9603B';
+                colors[596] = '#D9603B';
                 // Medium violet-red
-                colours[597] = '#C71585';
+                colors[597] = '#C71585';
                 // Mellow apricot
-                colours[598] = '#F8B878';
+                colors[598] = '#F8B878';
                 // Mellow yellow
-                colours[599] = '#F8DE7E';
+                colors[599] = '#F8DE7E';
                 // Melon
-                colours[600] = '#FDBCB4';
+                colors[600] = '#FDBCB4';
                 // Metallic Seaweed
-                colours[601] = '#0A7E8C';
+                colors[601] = '#0A7E8C';
                 // Metallic Sunburst
-                colours[602] = '#9C7C38';
+                colors[602] = '#9C7C38';
                 // Mexican pink
-                colours[603] = '#E4007C';
+                colors[603] = '#E4007C';
                 // Midnight blue
-                colours[604] = '#191970';
+                colors[604] = '#191970';
                 // Midnight green (eagle green)
-                colours[605] = '#004953';
+                colors[605] = '#004953';
                 // Midori
-                colours[606] = '#E3F988';
+                colors[606] = '#E3F988';
                 // Mikado yellow
-                colours[607] = '#FFC40C';
+                colors[607] = '#FFC40C';
                 // Mint
-                colours[608] = '#3EB489';
+                colors[608] = '#3EB489';
                 // Mint cream
-                colours[609] = '#F5FFFA';
+                colors[609] = '#F5FFFA';
                 // Mint green
-                colours[610] = '#98FF98';
+                colors[610] = '#98FF98';
                 // Misty rose
-                colours[611] = '#FFE4E1';
+                colors[611] = '#FFE4E1';
                 // Moccasin
-                colours[612] = '#FAEBD7';
+                colors[612] = '#FAEBD7';
                 // Mode beige
-                colours[613] = '#967117';
+                colors[613] = '#967117';
                 // Moonstone blue
-                colours[614] = '#73A9C2';
+                colors[614] = '#73A9C2';
                 // Mordant red 19
-                colours[615] = '#AE0C00';
+                colors[615] = '#AE0C00';
                 // Moss green
-                colours[616] = '#8A9A5B';
+                colors[616] = '#8A9A5B';
                 // Mountain Meadow
-                colours[617] = '#30BA8F';
+                colors[617] = '#30BA8F';
                 // Mountbatten pink
-                colours[618] = '#997A8D';
+                colors[618] = '#997A8D';
                 
                 // Pickup any custom colours
                 var labels = new Array();
-                $.each(settings.json.groups, function(i, item) {
+                $.each(settings.data.groups, function(i, item) {
                     $.each(item.values, function(i, item) {
                         if ($.inArray(item.label, labels) == -1) {
                             labels[labels.length] = item.label;
-                            if (item.colour != undefined) {
-                                colours[i] = item.colour;   
+                            if (item.color != undefined) {
+                                colors[i] = item.color;   
                             }
                         }
                     });
@@ -1374,7 +1374,7 @@
             }
         };
         
-        methods.setupColours();
+        methods.setupcolors();
         
         return this.each(function() {
             var c = $(this)[0];
@@ -1393,7 +1393,7 @@
             // If we are showing a legend, we need to add additional padding to the right
             // to ensure we have enough room. To determine how much we need we'll need to
             // check the largest label width and add a few pixels on for padding of that.
-            if (settings.showLegend && settings.json.groups.length > 0) {
+            if (settings.showLegend && settings.data.groups.length > 0) {
                 settings.paddingRight += methods.getLargestLabel(ctx) + 40;
                 methods.drawLegend(ctx);
             }
@@ -1409,7 +1409,7 @@
             if (settings.showLabels) {
                 ctx.font = "bold 14px \"lucida grande\",tahoma,verdana,arial,sans-serif";
                 ctx.textAlign = 'center';
-                ctx.fillText(settings.json.xLabel, (right + left) / 2, bottom + 45);
+                ctx.fillText(settings.data.xLabel, (right + left) / 2, bottom + 45);
                 methods.drawVerticalLabel(ctx, settings.paddingLeft, top + (chartHeight / 2));
                 
                 // Move the left boundary by the height of the previously drawn label
@@ -1468,30 +1468,30 @@
             var chartWidth = right - left;
             var barCount = methods.getBarCount();
             var groupSpacing = 15;
-            var barWidth = (chartWidth - (groupSpacing * (settings.json.groups.length + 1))) / barCount;
+            var barWidth = (chartWidth - (groupSpacing * (settings.data.groups.length + 1))) / barCount;
             var currentXPos = left;
             
             // Draw the bars
             ctx.font = "11px \"lucida grande\",tahoma,verdana,arial,sans-serif";
-            $.each(settings.json.groups, function(i, item) {
+            $.each(settings.data.groups, function(i, item) {
                 currentXPos += groupSpacing;
                 $.each(item.values, function(i, item) {
                     var barHeight = chartHeight * (item.value / highestValue);
                     ctx.beginPath();
                     ctx.rect(currentXPos, bottom - (barHeight + 0), barWidth, barHeight);
-                    ctx.fillStyle = colours[i];
+                    ctx.fillStyle = colors[i];
                     ctx.fill();
                     ctx.closePath();
                     currentXPos += barWidth;
                     
-                    if (settings.json.groups.length == 1) {
+                    if (settings.data.groups.length == 1) {
                         ctx.textAlign = 'center';
                         ctx.fillStyle = "black";
                         ctx.fillText(item.label, currentXPos - (barWidth / 2), bottom + 15);
                     }
                 });
                 
-                if (settings.json.groups.length > 1) {
+                if (settings.data.groups.length > 1) {
                     ctx.textAlign = 'center';
                     ctx.fillStyle = "black";
                     ctx.fillText(item.label, currentXPos - ((item.values.length / 2) * barWidth), bottom + 15);
