@@ -1,0 +1,353 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Graphly by rastating</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Graphly</h1>
+        <p>A jQuery graph rendering plugin</p>
+
+        <p class="view"><a href="https://github.com/rastating/graphly">View the Project on GitHub <small>rastating/graphly</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/rastating/graphly/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/rastating/graphly/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/rastating/graphly">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>Welcome to Graphly.</h3>
+
+<p>Graphly is an easy to use and lightweight jQuery plugin which allows you to transform your data into clean and customisable graphs. See below an example of a graph created using Graphly.</p>
+
+<p><img src="http://rastating.com/gpu-green-graph.png" alt="Graphly Sample"></p>
+
+<p>Supported browsers include:</p>
+
+<ul>
+<li>Chrome</li>
+<li>Firefox</li>
+<li>Internet Explorer 9+</li>
+<li>Opera</li>
+<li>Safari</li>
+</ul><h3>How Do I Use Graphly?</h3>
+
+<p>The first step is to include the jQuery and Graphly libraries inside the head tags of your HTML document and ensure the HTML 5 doctype is being used, as in this template:</p>
+
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"graphly.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<p>After you have included the jQuery and Graphly libraries, you must place a <strong>canvas</strong> element where you wish the graph to appear, and set the width and height accordingly. For example, an 800x300 graph would require the following markup:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"canvas"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"300"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</pre></div>
+
+<p>The final step to creating a graph is to construct your data and pass it through to the Graphly plugin. In its simplest form, the data consists of a single group of data and labels, such as this:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">'Characters'</span><span class="p">,</span>
+    <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">'Awesomeness'</span><span class="p">,</span>
+    <span class="nx">groups</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nx">label</span><span class="o">:</span>  <span class="s1">'People'</span><span class="p">,</span>
+            <span class="nx">values</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Jack Bauer'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">100</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Jack Shephard'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">13</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Nancy Botwin'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">50</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Walter White'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">77</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+
+<p><em>For more information on constructing your data see the <strong>Constructing Data</strong> section.</em></p>
+
+<p>Once the data is constructed, simply call the Graphly plugin:</p>
+
+<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'#canvas'</span><span class="p">).</span><span class="nx">graphly</span><span class="p">({</span> <span class="s1">'data'</span> <span class="o">:</span> <span class="nx">data</span> <span class="p">});</span>
+</pre></div>
+
+<p>See below for a complete example of how to use Graphly:</p>
+
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"graphly.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"canvas"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"300"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+
+        <span class="nt">&lt;script&gt;</span>
+            <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">'Characters'</span><span class="p">,</span>
+                    <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">'Awesomeness'</span><span class="p">,</span>
+                    <span class="nx">groups</span><span class="o">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="nx">label</span><span class="o">:</span>  <span class="s1">'People'</span><span class="p">,</span>
+                            <span class="nx">values</span><span class="o">:</span> <span class="p">[</span>
+                                <span class="p">{</span>
+                                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Jack Bauer'</span><span class="p">,</span>
+                                    <span class="nx">value</span><span class="o">:</span> <span class="mi">100</span>
+                                <span class="p">},</span>
+                                <span class="p">{</span>
+                                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Jack Shephard'</span><span class="p">,</span>
+                                    <span class="nx">value</span><span class="o">:</span> <span class="mi">13</span>
+                                <span class="p">},</span>
+                                <span class="p">{</span>
+                                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Nancy Botwin'</span><span class="p">,</span>
+                                    <span class="nx">value</span><span class="o">:</span> <span class="mi">50</span>
+                                <span class="p">},</span>
+                                <span class="p">{</span>
+                                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Walter White'</span><span class="p">,</span>
+                                    <span class="nx">value</span><span class="o">:</span> <span class="mi">77</span>
+                                <span class="p">}</span>
+                            <span class="p">]</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">};</span>
+
+                <span class="nx">$</span><span class="p">(</span><span class="s1">'#canvas'</span><span class="p">).</span><span class="nx">graphly</span><span class="p">({</span> <span class="s1">'data'</span> <span class="o">:</span> <span class="nx">data</span> <span class="p">});</span>
+            <span class="p">});</span>
+        <span class="nt">&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<p>In addition to the <strong>data</strong> setting that is passed in the above example, the following optional settings can be specified:</p>
+
+<ul>
+<li>paddingTop - the padding applied to the top of the canvas in pixels</li>
+<li>paddingLeft - the padding applied to the left of the canvas in pixels</li>
+<li>paddingBottom - the padding applied to the bottom of the canvas in pixels</li>
+<li>paddingRight - the padding applied to the right of the canvas in pixels</li>
+<li>showLabels - a boolean value indicating whether or not to show the axis labels</li>
+<li>showLegend - a boolean value indicating whether or not to show the legend</li>
+</ul><h3>Constructing Data</h3>
+
+<p>Currently Graphly is capable of generating graphs which consist of one or more groups of data. An example of a data set that contains one group of data can be found below. Within the root object are three objects, <strong>xLabel</strong>, <strong>yLabel</strong> and <strong>groups</strong>. The label objects contain the axis labels that will be displayed on the graph, and the groups object contains an array of objects which represent groups of entities and data values.</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">'Characters'</span><span class="p">,</span>
+    <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">'Awesomeness'</span><span class="p">,</span>
+    <span class="nx">groups</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nx">label</span><span class="o">:</span>  <span class="s1">'People'</span><span class="p">,</span>
+            <span class="nx">values</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Jack Bauer'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">100</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Jack Shephard'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">13</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Nancy Botwin'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">50</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Walter White'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">77</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>The label property in the group object is the label / name associated with the entire group (see below example for a better example of this), and the labels in the values array are those that are associated with each individual bar in the graph.</p>
+
+<p>In the above example, we have no repeating entities and will have four unique bars in the graph. However, if we have a graph that needs to show figures for a repeating group of entities under different circumstances, such as in the example below, which shows how a group of Graphics Processing Units perform under different circumstances, we can simply specify multiple groups in the groups array:</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">'GPU / Settings'</span><span class="p">,</span>
+    <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">'FPS'</span><span class="p">,</span>
+    <span class="nx">groups</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nx">label</span><span class="o">:</span> <span class="s1">'Tessellation Disabled'</span><span class="p">,</span>
+            <span class="nx">values</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'nVidia GeForce GTX 680 2 GB SLi'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">296</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'nVidia GeForce GTX 690 4 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">285</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'AMD Radeon HD 7970 3 GB CrossFire'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">267</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Nvidia GeForce GTX 590 3 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">248</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'AMD Radeon HD 6990 4 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">231</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'nVidia GeForce GTX 680 2 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">207</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'nVidia GeForce GTX 580 1.5 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">193</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'AMD Radeon HD 7970 3 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">148</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'AMD Radeon HD 7950 3 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">104</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nx">label</span><span class="o">:</span> <span class="s1">'Tessellation Enabled'</span><span class="p">,</span>
+            <span class="nx">values</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'nVidia GeForce GTX 680 2 GB SLi'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">245</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'nVidia GeForce GTX 690 4 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">240</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'AMD Radeon HD 7970 3 GB CrossFire'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">223</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Nvidia GeForce GTX 590 3 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">198</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'AMD Radeon HD 6990 4 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">171</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'nVidia GeForce GTX 680 2 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">142</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'nVidia GeForce GTX 580 1.5 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">141</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'AMD Radeon HD 7970 3 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">123</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'AMD Radeon HD 7950 3 GB'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">87</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>In addition to the above examples, we can customise how the data will be represented further by specifying colours that will be associated with each entity, as can be seen in this example:</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">'Characters'</span><span class="p">,</span>
+    <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">'Awesomeness'</span><span class="p">,</span>
+    <span class="nx">groups</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nx">label</span><span class="o">:</span>  <span class="s1">'People'</span><span class="p">,</span>
+            <span class="nx">values</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Jack Bauer'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+                    <span class="nx">color</span><span class="o">:</span> <span class="s1">'#636F57'</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Jack Shephard'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span>
+                    <span class="nx">color</span><span class="o">:</span> <span class="s1">'#78AB46'</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Nancy Botwin'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+                    <span class="nx">color</span><span class="o">:</span> <span class="s1">'#66CD00'</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="s1">'Walter White'</span><span class="p">,</span>
+                    <span class="nx">value</span><span class="o">:</span> <span class="mi">77</span><span class="p">,</span>
+                    <span class="nx">color</span><span class="o">:</span> <span class="s1">'#7FFF00'</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>If no colour is specified the default colour selection will be used for that particular entity.</p>
+
+<h3>Current Limitations</h3>
+
+<p>As Graphly is still in the early stages of development, it is still limited in a number of senses; primarily that it can only produce bar charts, and cannot handle negative values.</p>
+
+<p>Multiple graph types and support for both positive and negative values are currently planned as new features to be added in the near future, so keep checking back if these are issues for you.</p>
+
+<h3>Authors and Contributors</h3>
+
+<p>Graphly is developed by <a href="http://rastating.com/">rastating</a>, and can be found on the following networks:</p>
+
+<ul>
+<li>GitHub: <a href="https://github.com/rastating">https://github.com/rastating</a>
+</li>
+<li>Last.fm: <a href="http://www.last.fm/user/rastating">http://www.last.fm/user/rastating</a>
+</li>
+<li>Twitter: <a href="https://twitter.com/iamrastating">https://twitter.com/iamrastating</a>
+</li>
+<li>Xbox LIVE: <a href="https://live.xbox.com/en-GB/Profile?gamertag=rastatingg">https://live.xbox.com/en-GB/Profile?gamertag=rastatingg</a>
+</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/rastating">rastating</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
