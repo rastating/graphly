@@ -1,6 +1,6 @@
 // Copyright (C) 2013 rastating
 //
-// Version 0.01
+// Version 0.02
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -29,6 +29,15 @@
         }, options);
         
         var colors = new Array();
+        var vars = {
+            'width'         : 0,
+            'height'        : 0,
+            'paddingTop'    : settings.paddingTop,
+            'paddingLeft'   : settings.paddingLeft,
+            'paddingBottom' : settings.paddingBottom,
+            'paddingRight'  : settings.paddingRight,
+        };
+        
         var methods = {
             getBarCount : function() {
                 var retval = 0;
@@ -87,8 +96,8 @@
                 ctx.restore();   
             },
             drawLegend : function(ctx) {
-                var x = settings.width - settings.paddingRight + 15;
-                var y = settings.paddingTop + 5;
+                var x = vars.width - vars.paddingRight + 15;
+                var y = vars.paddingTop + 5;
                 var labels = new Array();
                 
                 $.each(settings.data.groups, function(i, item) {
@@ -1381,28 +1390,28 @@
             var ctx = c.getContext("2d");
             
             // Store the width and height of the canvas.
-            settings.width = $(this).width();
-            settings.height = $(this).height();
+            vars.width = $(this).width();
+            vars.height = $(this).height();
             
             // Setup a default padding of 15 pixels to ensure room for the value and axis labels.
-            settings.paddingLeft = settings.paddingLeft < 15 ? 15 : settings.paddingLeft;
-            settings.paddingTop = settings.paddingTop < 15 ? 15 : settings.paddingTop;
-            settings.paddingRight = settings.paddingRight < 15 ? 15 : settings.paddingRight;
-            settings.paddingBottom = settings.paddingBottom < 15 ? 15 : settings.paddingBottom;
+            vars.paddingLeft = settings.paddingLeft < 15 ? 15 : settings.paddingLeft;
+            vars.paddingTop = settings.paddingTop < 15 ? 15 : settings.paddingTop;
+            vars.paddingRight = settings.paddingRight < 15 ? 15 : settings.paddingRight;
+            vars.paddingBottom = settings.paddingBottom < 15 ? 15 : settings.paddingBottom;
             
             // If we are showing a legend, we need to add additional padding to the right
             // to ensure we have enough room. To determine how much we need we'll need to
             // check the largest label width and add a few pixels on for padding of that.
             if (settings.showLegend && settings.data.groups.length > 0) {
-                settings.paddingRight += methods.getLargestLabel(ctx) + 40;
+                vars.paddingRight += methods.getLargestLabel(ctx) + 40;
                 methods.drawLegend(ctx);
             }
             
             // Store the boundaries of the chart for quick access.
-            var top = settings.paddingTop;
-            var bottom = settings.height - settings.paddingBottom - 35;
-            var left = settings.paddingLeft;
-            var right = settings.width - settings.paddingRight;
+            var top = vars.paddingTop;
+            var bottom = vars.height - vars.paddingBottom - 35;
+            var left = vars.paddingLeft;
+            var right = vars.width - vars.paddingRight;
             var chartHeight = bottom - top;
 
             // Draw the labels if the flag is set.
@@ -1410,7 +1419,7 @@
                 ctx.font = "bold 14px \"lucida grande\",tahoma,verdana,arial,sans-serif";
                 ctx.textAlign = 'center';
                 ctx.fillText(settings.data.xLabel, (right + left) / 2, bottom + 45);
-                methods.drawVerticalLabel(ctx, settings.paddingLeft, top + (chartHeight / 2));
+                methods.drawVerticalLabel(ctx, vars.paddingLeft, top + (chartHeight / 2));
                 
                 // Move the left boundary by the height of the previously drawn label
                 // in order to prevent value labels clashing with the axis label.
