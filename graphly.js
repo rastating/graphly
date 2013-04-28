@@ -1433,44 +1433,65 @@
             var lowestValue = methods.getSmallestValue();
             var highestValue = methods.getLargestValue();
             var labelGap = chartHeight / 10;
-            var largestLabel = 0;            
+            var largestLabel = 0;          
             
             // If the lowest value is equal to or more than zero, calculate
             // labels up to the maximum value from zero.
-            if (lowestValue >= 0) {
-                var labels = new Array();
-                for (var i = 0; i <= 10; i++) {
-                    var labelValue;
-                    
-                    if (i < 10) {
-                        labelValue = (highestValue - (highestValue * ((i * 10) / 100)));
-                    }
-                    else {
-                        labelValue = 0; 
-                    }
-                    
-                    var labelDimensions = ctx.measureText(Math.round(labelValue));
-                    if (labelDimensions.width > largestLabel) {
-                        largestLabel = labelDimensions.width;
-                    }
-                    
-                    labels[i] = Math.round(labelValue);
+            lowestValue = lowestValue > 0 ? 0 : lowestValue;
+            
+            var totalSteps = (lowestValue * -1) + highestValue;
+            var labels = new Array();
+            for (var i = 0; i <= 10; i++) {
+                var labelValue;
+                
+                if (i < 10) {
+                    labelValue = (totalSteps - (totalSteps * ((i * 10) / 100))) - (lowestValue * -1);
+                }
+                else {
+                    labelValue = lowestValue; 
                 }
                 
-                left = left + largestLabel;
+                var labelDimensions = ctx.measureText(Math.round(labelValue));
+                if (labelDimensions.width > largestLabel) {
+                    largestLabel = labelDimensions.width;
+                }
                 
-                // Draw the labels and the horizontal markers in the background.
-                $.each(labels, function(i, item) {
-                    ctx.fillText(item, left, top + (i * labelGap));
-                    ctx.beginPath();
-                    ctx.strokeStyle = "#CCCCCC";
-                    ctx.lineWidth = 1;
-                    ctx.moveTo(left + 5, Math.round(top + (i * labelGap)) + 0.5);
-                    ctx.lineTo(right, Math.round(top + (i * labelGap)) + 0.5);
-                    ctx.stroke();
-                    ctx.closePath();
-                });
+                labels[i] = Math.round(labelValue);
             }
+            
+            /*
+            var labels = new Array();
+            for (var i = 0; i <= 10; i++) {
+                var labelValue;
+                
+                if (i < 10) {
+                    labelValue = (highestValue - (highestValue * ((i * 10) / 100)));
+                }
+                else {
+                    labelValue = lowestValue; 
+                }
+                
+                var labelDimensions = ctx.measureText(Math.round(labelValue));
+                if (labelDimensions.width > largestLabel) {
+                    largestLabel = labelDimensions.width;
+                }
+                
+                labels[i] = Math.round(labelValue);
+            }*/
+            
+            left = left + largestLabel;
+            
+            // Draw the labels and the horizontal markers in the background.
+            $.each(labels, function(i, item) {
+                ctx.fillText(item, left, top + (i * labelGap));
+                ctx.beginPath();
+                ctx.strokeStyle = "#CCCCCC";
+                ctx.lineWidth = 1;
+                ctx.moveTo(left + 5, Math.round(top + (i * labelGap)) + 0.5);
+                ctx.lineTo(right, Math.round(top + (i * labelGap)) + 0.5);
+                ctx.stroke();
+                ctx.closePath();
+            });
             
             // Update the bounds of the chart and setup the width of each bar.
             left = left + 5;
@@ -1480,14 +1501,53 @@
             var barWidth = (chartWidth - (groupSpacing * (settings.data.groups.length + 1))) / barCount;
             var currentXPos = left;
             
+            var stepHeight = (bottom - top) / totalSteps;
+            var zeroPoint = bottom - ((lowestValue * -1) * stepHeight);
+            
+            /*alert('ch: ' + bottom);
+            alert('sh: ' + stepHeight);
+            alert('ts: ' + totalSteps);
+            alert('lv: ' + lowestValue);
+            alert('zp: ' + zeroPoint);*/
+            
             // Draw the bars
             ctx.font = "11px \"lucida grande\",tahoma,verdana,arial,sans-serif";
             $.each(settings.data.groups, function(i, item) {
                 currentXPos += groupSpacing;
                 $.each(item.values, function(i, item) {
-                    var barHeight = chartHeight * (item.value / highestValue);
+                    //var barHeight = zeroPoint.toFixed(3) - (item.value.toFixed(3) * stepHeight.toFixed(3));
+                    var barHeight = item.value * stepHeight;
+                
+                    
+                    //barHeight = Math.ceil(barHeight);
+                    //alert(zeroPoint + ' - (' + item.value + ' * ' + stepHeight + ') = ' + barHeight);
+                    
+                    if (item.value == 2) {
+                        alert('sh: ' + stepHeight);
+                        alert('b' + bottom + 'z' + zeroPoint);
+                        alert(barHeight + ' for ' + item.value);
+                    }
+                    
+                    // If the value is zero it needs to be the max value
+                    /*if (item.value == highestValue) {
+                        barHeight = zeroPoint - top;
+                    }*/
+                    
+                    if (item.value >= 0) {
+                        barHeight = barHeight * -1;   
+                    }
+                    else {
+                        //alert(barHeight);
+                        barHeight = barHeight * -1;
+                        //barHeight = zeroPoint + barHeight;
+                    }
+                    
+                    //alert(barHeight + ' for ' + item.value);
+                    
+                    
                     ctx.beginPath();
-                    ctx.rect(currentXPos, bottom - (barHeight + 0), barWidth, barHeight);
+                    // ctx.rect(currentXPos, zeroPoint, barWidth, item.value >= 0 ? barHeight * -1 : barHeight - zeroPoint);
+                    ctx.rect(currentXPos, zeroPoint, barWidth, barHeight);
                     ctx.fillStyle = colors[i];
                     ctx.fill();
                     ctx.closePath();
@@ -1516,6 +1576,18 @@
             ctx.lineTo(right, bottom + 0.5);
             ctx.stroke();
             ctx.closePath();
+            
+            ctx.save();
+            
+            ctx.beginPath();
+            ctx.strokeStyle = "#343434";
+            ctx.lineWidth = 2;
+            ctx.moveTo(left, zeroPoint + 0.5);
+            ctx.lineTo(right, zeroPoint + 0.5);
+            ctx.stroke();
+            ctx.closePath();
+            
+            ctx.restore();
         });  
     };
 })(jQuery);

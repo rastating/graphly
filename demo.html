@@ -2,14 +2,17 @@
 <html>
     <head>
         <script src="jquery.min.js"></script>
-        <script src="graphly.min.js"></script>
+        <script src="graphly.js"></script>
     </head>
     <body>
+        <h1>Graph with Positive and Negative Values</h1>
+        <canvas class="positive-negative-graph" width="800" height="400"></canvas>
+        
         <h1>800x300 Graph</h1>
         <canvas class="tessellation-graph" width="800" height="300"></canvas>
         
         <h1>600x200 Graph</h1>
-        <canvas class="tessellation-graph"  width="600" height="200"></canvas>
+        <canvas class="tessellation-graph2"  width="600" height="200"></canvas>
         
         <script>
             $(function() {
@@ -112,7 +115,41 @@
                 }; 
 
                 
-                $('.tessellation-graph').graphly({ 'data' : data, showLegend : true, showLabels: true });
+                //$('.tessellation-graph').graphly({ 'data' : data, showLegend : true, showLabels: true });
+                
+                var mixedData = {
+                    xLabel: 'Entities',
+                    yLabel: 'Values',
+                    groups: [
+                        {
+                            label: 'Test',
+                            values: [
+                                {
+                                    label: 'Entity 1',
+                                    value: 15
+                                },
+                                {
+                                    label: 'Entity 2',
+                                    value: 20
+                                },
+                                {
+                                    label: 'Entity 3',
+                                    value: 5
+                                },
+                                {
+                                    label: 'Entity 4',
+                                    value: -10
+                                },
+                                {
+                                    label: 'Entity 5',
+                                    value: -5
+                                }
+                            ]
+                        }
+                    ]
+                };
+                
+                $('.positive-negative-graph').graphly({ 'data' : mixedData, showLegend : true, showLabels: true });
             });
         </script>
     </body>
