@@ -269,7 +269,7 @@
             // to ensure we have enough room. To Determine how much we need we'll need to
             // check the largest label width and add a few extra pixels to ensure spacing
             // between the graph and the legend itself.
-            if (settings.showLegend && settings.data.groups.length > 0) {
+            if (settings.showLegend && settings.data.groups.length > 1) {
                 globals.paddingRight += globals.largestLabelWidth + 55;
                 methods.drawLegend(ctx);
             }
