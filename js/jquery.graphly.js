@@ -43,7 +43,8 @@
             'top'               : 0,
             'left'              : 0,
             'bottom'            : 0,
-            'right'             : 0
+            'right'             : 0,
+            'decimalCount'      : 0
         };
         
         var methods = {
@@ -52,6 +53,7 @@
                 var largestValue = null;
                 var smallestValue = null;
                 var largestLabel = null;
+                var decimalCount = null;
                 
                 // Cache the dimensions of the current canvas.
                 globals.width = $(canvas).width();
@@ -73,6 +75,12 @@
                         // Update the smallest value, if needed.
                         if (smallestValue == null || smallestValue > entity.value) {
                             smallestValue = entity.value;   
+                        }
+                        
+                        // Update the decimal count value, if needed.
+                        var currentDecimalPlaces = methods.getDecimalPlaces(entity.value);
+                        if (decimalCount == null || decimalCount < currentDecimalPlaces) {
+                            decimalCount = currentDecimalPlaces;
                         }
                         
                         // Calculate the dimensions of the current label and update
@@ -98,6 +106,7 @@
                 globals.largestValue = largestValue;
                 globals.smallestValue = smallestValue;
                 globals.largestLabelWidth = largestLabel;
+                globals.decimalCount = decimalCount;
             },
             drawVerticalLabel : function(ctx, x, y) {
                 ctx.save();
@@ -158,12 +167,12 @@
                 // Calculate the label values and dimensions.
                 for (var i = 0; i <= 10; i++) {
                     var value = i < 10 ? (totalSteps - (totalSteps * ((i * 10) / 100))) - (globals.smallestValue * -1) : globals.smallestValue;
-                    var dimensions = ctx.measureText(Math.round(value));
+                    var dimensions = ctx.measureText(methods.roundToFixed(value, globals.decimalCount));
                     if (largestLabel == null || largestLabel < dimensions.width) {
                         largestLabel = dimensions.width;
                     }
                     
-                    labels[i] = Math.round(value);
+                    labels[i] = methods.roundToFixed(value, globals.decimalCount);
                 }
                 
                 // Increment the left margin by the largest label width.
@@ -240,6 +249,14 @@
                     ctx.stroke();
                     ctx.closePath();
                 }
+            },
+            getDecimalPlaces : function(number) {
+                var match = ('' + number).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+                return !match ? 0 : Math.max(0, (match[1] ? match[1].length : 0) - (match[2] ? +match[2] : 0));
+            },
+            roundToFixed : function(number, decimalPlaces) {
+                var rounder = Math.pow(10, decimalPlaces);
+                return (Math.round(number * rounder) / rounder).toFixed(decimalPlaces);
             }
         };
         
