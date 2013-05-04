@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="jquery.min.js"></script>
-        <script src="graphly.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery.graphly.min.js"></script>
     </head>
     <body>
         <h1>Graph with Positive and Negative Values</h1>
@@ -12,7 +12,7 @@
         <canvas class="tessellation-graph" width="800" height="300"></canvas>
         
         <h1>600x200 Graph</h1>
-        <canvas class="tessellation-graph2"  width="600" height="200"></canvas>
+        <canvas class="tessellation-graph"  width="600" height="200"></canvas>
         
         <script>
             $(function() {
@@ -115,7 +115,7 @@
                 }; 
 
                 
-                //$('.tessellation-graph').graphly({ 'data' : data, showLegend : true, showLabels: true });
+                $('.tessellation-graph').graphly({ 'data' : data, showLegend : true, showLabels: true });
                 
                 var mixedData = {
                     xLabel: 'Entities',
