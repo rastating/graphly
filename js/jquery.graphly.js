@@ -25,7 +25,9 @@
             'paddingBottom' : 1,
             'paddingRight'  : 1,
             'showLabels'    : true,
-            'showLegend'    : true
+            'showLegend'    : true,
+            'width'         : null,
+            'height'        : null
         }, options);
         
         var globals = {
@@ -54,10 +56,10 @@
                 var smallestValue = null;
                 var largestLabel = null;
                 var decimalCount = null;
-                
+
                 // Cache the dimensions of the current canvas.
-                globals.width = $(canvas).width();
-                globals.height = $(canvas).height();
+                globals.width = settings.width == null ? $(canvas).width() : settings.width;
+                globals.height = settings.height == null ? $(canvas).height() : settings.height;
                 
                 // Setup a default padding of 15 pixels.
                 globals.paddingLeft = settings.paddingLeft < 15 ? 15 : settings.paddingLeft;
