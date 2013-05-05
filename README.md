@@ -12,6 +12,9 @@ Supported browsers include:
 * Opera
 * Safari
 
+### Examples
+To see some examples of Graphly in use, visit the demo page at http://www.getgraphly.com/demo/
+
 ### How Do I Use Graphly?
 The first step is to include the jQuery and Graphly libraries inside the head tags of your HTML document and ensure the HTML 5 doctype is being used, as in this template:
 
@@ -297,9 +300,11 @@ In addition to the above examples, we can customise how the data will be represe
 If no colour is specified the default colour selection will be used for that particular entity.
 
 ### Current Limitations
-As Graphly is still in the early stages of development, it is still limited in a number of senses; primarily that it can only produce bar charts, and cannot handle negative values.
+As Graphly is still in the early stages of development, it is still limited in a number of senses; primarily that it can only produce bar charts.
 
-Multiple graph types and support for both positive and negative values are currently planned as new features to be added in the near future, so keep checking back if these are issues for you.
+Multiple graph types are currently planned as new features to be added in the near future, so keep checking back if this is an issue for you.
+
+Alternatively, [Open an Issue](https://github.com/rastating/graphly/issues/new) to bring suggestions and bugs to light.
 
 ### Authors and Contributors
 Graphly is developed by [rastating](http://rastating.com/), and can be found on the following networks:
