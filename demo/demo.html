@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery.graphly.min.js"></script>
+        <title>Graphly Demo</title>
+        <link rel="stylesheet" media="screen" href="bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" media="screen" href="bootstrap/css/bootstrap-responsive.min.css" />
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script>
+            $(function() {
+                $('#basic-graph-button').click(function() {
+                    $('li.active').removeClass('active');
+                    $('#basic-graph-button').parent().addClass('active');
+                    $('.example:visible').not('#basic-graph-container').fadeOut(300, function() {
+                        $('#basic-graph-container').fadeIn(300);
+                    });
+                });
+                
+                $('#custom-colours-button').click(function() {
+                    $('li.active').removeClass('active');
+                    $('#custom-colours-button').parent().addClass('active');
+                    $('.example:visible').not('#custom-colours-container').fadeOut(300, function() {
+                        $('#custom-colours-container').fadeIn(300);
+                    });
+                });
+                
+                $('#grouped-graph-button').click(function() {
+                    $('li.active').removeClass('active');
+                    $('#grouped-graph-button').parent().addClass('active');
+                    $('.example:visible').not('#grouped-graph-container').fadeOut(300, function() {
+                        $('#grouped-graph-container').fadeIn(300);
+                    });
+                });
+                
+                $('#negative-positive-graph-button').click(function() {
+                    $('li.active').removeClass('active');
+                    $('#negative-positive-graph-button').parent().addClass('active');
+                    $('.example:visible').not('#negative-positive-container').fadeOut(300, function() {
+                        $('#negative-positive-container').fadeIn(300);
+                    });
+                });
+            });
+        </script>
+        <script src="basic_graph.js"></script>
+        <script src="custom_colours.js"></script>
+        <script src="grouped_graph.js"></script>
+        <script src="negative_positive_graph.js"></script>
+        <style>
+            .nav-pills li a {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="span12 text-center">
+                    <h1>Graphly Demo</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12 text-center">
+                    <ul class="nav nav-pills" style="display: inline-block;">
+                        <li class="active">
+                            <a id="basic-graph-button">Basic Graph</a>
+                        </li>
+                        <li><a id="custom-colours-button">Custom Colours</a></li>
+                        <li><a id="grouped-graph-button">Grouped Graph</a></li>
+                        <li><a id="negative-positive-graph-button">Negative &amp; Positive Values</a></li>
+                    </ul>
+                    <hr />
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="span12 text-center example" id="basic-graph-container">
+                    <h2>Netflix Stock Price History <a class="btn btn-primary btn-mini" href="basic_graph.js" target="_blank">View Code</a></h2>
+                    <canvas id="basic-graph" height="400" width="900"></canvas>
+                </div>
+                <div class="span12 text-center example" id="custom-colours-container" style="display: none;">
+                    <h2>Half-Life Sales Statistics (1998 - 2008) <a class="btn btn-primary btn-mini" href="custom_colours.js" target="_blank">View Code</a></h2>
+                    <canvas id="custom-colours" height="400" width="960"></canvas>
+                </div>
+                <div class="span12 text-center example" id="grouped-graph-container" style="display: none;">
+                    <h2>GPU Benchmarks <a class="btn btn-primary btn-mini" href="grouped_graph.js" target="_blank">View Code</a></h2>
+                    <canvas id="grouped-graph" height="400" width="960"></canvas>
+                </div>
+                <div class="span12 text-center example" id="negative-positive-container" style="display: none;">
+                    <h2>Minimum Temperature in Afghanistan <a class="btn btn-primary btn-mini" href="negative_positive_graph.js" target="_blank">View Code</a></h2>
+                    <canvas id="negative-positive-graph" height="400" width="960"></canvas>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="span12">
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
