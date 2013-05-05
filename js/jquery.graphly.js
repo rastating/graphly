@@ -1,6 +1,6 @@
 // Copyright (C) 2013 rastating
 //
-// Version 0.1.3
+// Version 0.1.4
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -225,6 +225,13 @@
                             ctx.fillText(entity.label, x - (barWidth / 2), globals.bottom + 15);
                         }
                     });
+                    
+                    // If this is a grouped graph, we need to draw the group label.
+                    if (settings.data.groups.length > 1) {
+                        ctx.textAlign = 'center';
+                        ctx.fillStyle = "black";
+                        ctx.fillText(group.label, x - ((group.values.length / 2) * barWidth), globals.bottom + 15);
+                    }
                 });
                 
                 ctx.restore();
