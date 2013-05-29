@@ -434,9 +434,33 @@
                         {
                             fill: '#9eb1e9',
                             stroke: '#7e8dba'
+                        }, 
+                        {
+                            fill: '#da5cb3',
+                            stroke: '#ae4993'
+                        },
+                        {
+                            fill: '#e384c9',
+                            stroke: '#b569af'
+                        },
+                        {
+                            fill: '#e99edb',
+                            stroke: '#ba7eb5'
+                        }, 
+                        {
+                            fill: '#da915c',
+                            stroke: '#ae7849'
+                        },
+                        {
+                            fill: '#e3b784',
+                            stroke: '#b59b69'
+                        },
+                        {
+                            fill: '#e9d29e',
+                            stroke: '#baa37e'
                         }
                     ]
                 }
             ]
-        };   
+        };
 })(jQuery);
