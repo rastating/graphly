@@ -434,18 +434,6 @@
                         {
                             fill: '#9eb1e9',
                             stroke: '#7e8dba'
-                        },
-                        {
-                            fill: '#e7ad00',
-                            stroke: '#b88a00'
-                        },
-                        {
-                            fill: '#edc13e',
-                            stroke: '#bd9a31'
-                        },
-                        {
-                            fill: '#f1ce67',
-                            stroke: '#c0a452'
                         }
                     ]
                 }
