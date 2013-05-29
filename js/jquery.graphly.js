@@ -29,7 +29,8 @@
             'width'         : null,
             'height'        : null,
             'theme'         : 'default',
-            'removeBorders' : false
+            'removeBorders' : false,
+            'customTheme'   : null
         }, options);
         
         var globals = {
@@ -60,7 +61,17 @@
                 var largestLabel = null;
                 var decimalCount = null;
                 
-                methods.loadTheme(settings.theme);
+                // If a custom theme was specified, set it as the theme to use
+                // otherwise load the theme by name.
+                if (settings.customTheme == null) {
+                    methods.loadTheme(settings.theme);
+                }
+                else {
+                   $.each(settings.customTheme.colors, function(i, color) {
+                        globals.colors[i] = color.fill; 
+                        globals.borderColors[i] = color.stroke;
+                    });
+                }
 
                 // Cache the dimensions of the current canvas.
                 globals.width = settings.width == null ? $(canvas).width() : settings.width;
@@ -106,7 +117,7 @@
                         // Increment the bar count.
                         barCount += 1; 
                     });
-                });
+                });                
                 
                 // Save the calculated values into the globals array.
                 globals.barCount = barCount;
