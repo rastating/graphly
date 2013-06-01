@@ -56,5 +56,5 @@ $(function() {
         ]
     };
     
-    $('#custom-colours').graphly({ 'data' : custom_colours_data, 'width' : 960, 'height' : 400 });
+    $('#custom-colours').graphly({ 'data' : custom_colours_data, 'width' : 960, 'height' : 400, removeBorders: true });
 });
