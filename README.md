@@ -126,12 +126,17 @@ See below for a complete example of how to use Graphly:
 
 In addition to the **data** setting that is passed in the above example, the following optional settings can be specified:
 
+* customTheme - a custom theme definition to use instead of a built-in theme
+* height - the initial height of the canvas to draw on
 * paddingTop - the padding applied to the top of the canvas in pixels
 * paddingLeft - the padding applied to the left of the canvas in pixels
 * paddingBottom - the padding applied to the bottom of the canvas in pixels
 * paddingRight - the padding applied to the right of the canvas in pixels
+* removeBorders - a boolean value indicating whether or not to remove borders from bars
 * showLabels - a boolean value indicating whether or not to show the axis labels
 * showLegend - a boolean value indicating whether or not to show the legend
+* theme - the name of the built-in theme to use
+* width - the initial width of the canvas to draw on
 
 ### Constructing Data
 Currently Graphly is capable of generating graphs which consist of one or more groups of data. An example of a data set that contains one group of data can be found below. Within the root object are three objects, **xLabel**, **yLabel** and **groups**. The label objects contain the axis labels that will be displayed on the graph, and the groups object contains an array of objects which represent groups of entities and data values.
