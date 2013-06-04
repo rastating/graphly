@@ -17,6 +17,14 @@
                     });
                 });
                 
+                $('#line-graph-button').click(function() {
+                    $('li.active').removeClass('active');
+                    $('#line-graph-button').parent().addClass('active');
+                    $('.example:visible').not('#line-graph-container').fadeOut(300, function() {
+                        $('#line-graph-container').fadeIn(300);
+                    });
+                });
+                
                 $('#custom-colours-button').click(function() {
                     $('li.active').removeClass('active');
                     $('#custom-colours-button').parent().addClass('active');
@@ -43,6 +51,7 @@
             });
         </script>
         <script src="basic_graph.js"></script>
+        <script src="line_graph.js"></script>
         <script src="custom_colours.js"></script>
         <script src="grouped_graph.js"></script>
         <script src="negative_positive_graph.js"></script>
@@ -65,6 +74,7 @@
                         <li class="active">
                             <a id="basic-graph-button">Basic Graph</a>
                         </li>
+                        <li><a id="line-graph-button">Line Graph</a></li>
                         <li><a id="custom-colours-button">Custom Colours</a></li>
                         <li><a id="grouped-graph-button">Grouped Graph</a></li>
                         <li><a id="negative-positive-graph-button">Negative &amp; Positive Values</a></li>
@@ -75,8 +85,12 @@
             
             <div class="row">
                 <div class="span12 text-center example" id="basic-graph-container">
-                    <h2>Stock History for 2012 <a class="btn btn-primary btn-mini" href="basic_graph.js" target="_blank">View Code</a></h2>
+                    <h2>Netflix Stock Price History <a class="btn btn-primary btn-mini" href="basic_graph.js" target="_blank">View Code</a></h2>
                     <canvas id="basic-graph" height="400" width="900"></canvas>
+                </div>
+                <div class="span12 text-center example" id="line-graph-container" style="display: none;">
+                    <h2>Stock History for 2012 <a class="btn btn-primary btn-mini" href="line_graph.js" target="_blank">View Code</a></h2>
+                    <canvas id="line-graph" height="400" width="900"></canvas>
                 </div>
                 <div class="span12 text-center example" id="custom-colours-container" style="display: none;">
                     <h2>Half-Life Sales Statistics (1998 - 2008) <a class="btn btn-primary btn-mini" href="custom_colours.js" target="_blank">View Code</a></h2>
