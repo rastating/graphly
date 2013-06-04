@@ -1,6 +1,6 @@
 // Copyright (C) 2013 rastating
 //
-// Version 0.2.4
+// Version 0.3.4
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -62,6 +62,9 @@
                 var largestLabel = null;
                 var decimalCount = null;
                 
+                // If we're using a line graph and the default theme, switch to a
+                // slightly different version of the default theme which is more
+                // suited to line graphs due to the possibility of overlapping.
                 if (settings.type == 'line' && settings.theme == 'default') {
                     settings.theme = 'default-line-graph';   
                 }
@@ -92,7 +95,6 @@
                     // Calculate the dimensions of the current label and update
                     // the largest label width, if it's a line graph and required.
                     if (settings.type == 'line') {
-                        console.log(group.label);
                         var currentLabelWidth = ctx.measureText(group.label).width;
                         if (largestLabel == null || largestLabel < currentLabelWidth) {
                             largestLabel = currentLabelWidth;   
@@ -371,8 +373,6 @@
                 var drawnLabels = false;
                 var rectanglePoints = new Array();
                 
-                console.log('plotSpacing: ' + plotSpacing);
-                
                 $.each(settings.data.groups, function(i, group) {
                     var previousPointY = zeroPoint;
                     var previousPointX = globals.left + (plotSpacing / 2);
@@ -381,11 +381,10 @@
                     x = globals.left + (plotSpacing / 2);
                     
                     $.each(group.values, function(i, value) {
-                        var lineHeight = globals.bottom - (value * stepHeight); //* -1;
-                        console.log(value + ' : ' + lineHeight);
+                        var lineHeight = globals.bottom - (value * stepHeight);;
                         ctx.beginPath();
                         
-                        ctx.strokeStyle = groupFillColor; //methods.getFillColor(i);
+                        ctx.strokeStyle = groupFillColor;
                         ctx.lineWidth = 3;
                         if (i > 0) {
                             ctx.moveTo(previousPointX, previousPointY);
@@ -394,20 +393,13 @@
                         
                         previousPointX = x + 0.5;
                         previousPointY = lineHeight;
-
-                        
                         ctx.stroke();
                         rectanglePoints[i] = new Array(previousPointX, previousPointY);
-                        //ctx.rect(previousPointX - 5, previousPointY - 5, 10, 10);
-                        //ctx.fillStyle = methods.getStrokeColor(i);
-                        //ctx.fill();
                         ctx.closePath();
                         
                         // Increment the X point and draw a label if required.
                         var distance = plotSpacing + 9;
-                        //console.log('distance: ' + distance);
                         x += distance;
-                        //console.log('x: ' + x);
                         if (!drawnLabels) {
                             // The plotSpacing / 2 is removed in the below variable as 
                             // we X is placed at the center point of each label in line graphs.
@@ -420,7 +412,7 @@
                     
                     $.each(rectanglePoints, function(i, point) {
                         ctx.rect(point[0] - 5, point[1] - 5, 10, 10);
-                        ctx.fillStyle = groupStrokeColor; //methods.getStrokeColor(i);
+                        ctx.fillStyle = groupStrokeColor;
                         ctx.fill();
                     });
                     
