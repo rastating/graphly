@@ -33,7 +33,7 @@
 
 <p>Graphly is an easy to use and lightweight jQuery plugin which allows you to transform your data into clean and customisable graphs. See below an example of a graph created using Graphly.</p>
 
-<p><img src="http://rastating.com/gpu-green-graph.png" alt="Graphly Sample"></p>
+<p><img src="http://rastating.com/graphly-bar-chart.jpg" alt="Graphly Sample"></p>
 
 <p>Supported browsers include:</p>
 
@@ -69,7 +69,7 @@
 <div class="highlight"><pre><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"canvas"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"300"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
 </pre></div>
 
-<p>The final step to creating a graph is to construct your data and pass it through to the Graphly plugin. In its simplest form, the data consists of a single group of data and labels, such as this:</p>
+<p>The final step to creating a graph is to construct your data and pass it through to the Graphly plugin. The structure of this data differs based on what type of graph you want to use. If you want to create a bar chart, in its simplest form, the data consists of a single group of data and labels, such as this:</p>
 
 <div class="highlight"><pre><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">'Characters'</span><span class="p">,</span>
@@ -100,14 +100,14 @@
 <span class="p">};</span>
 </pre></div>
 
-<p><em>For more information on constructing your data see the <strong>Constructing Data</strong> section.</em></p>
+<p><em>For more information on constructing your data see the <strong>Constructing Data for Bar Charts</strong> and <strong>Constructing Data for Line Graphs</strong> sections.</em></p>
 
 <p>Once the data is constructed, simply call the Graphly plugin:</p>
 
 <div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'#canvas'</span><span class="p">).</span><span class="nx">graphly</span><span class="p">({</span> <span class="s1">'data'</span> <span class="o">:</span> <span class="nx">data</span> <span class="p">});</span>
 </pre></div>
 
-<p>See below for a complete example of how to use Graphly:</p>
+<p>See below for a complete example of how to use Graphly to create a bar chart:</p>
 
 <div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html&gt;</span>
@@ -170,7 +170,7 @@
 <li>theme - the name of the built-in theme to use</li>
 <li>width - the initial width of the canvas to draw on</li>
 </ul><h3>
-<a name="constructing-data" class="anchor" href="#constructing-data"><span class="octicon octicon-link"></span></a>Constructing Data</h3>
+<a name="constructing-data-for-bar-charts" class="anchor" href="#constructing-data-for-bar-charts"><span class="octicon octicon-link"></span></a>Constructing Data for Bar Charts</h3>
 
 <p>Currently Graphly is capable of generating graphs which consist of one or more groups of data. An example of a data set that contains one group of data can be found below. Within the root object are three objects, <strong>xLabel</strong>, <strong>yLabel</strong> and <strong>groups</strong>. The label objects contain the axis labels that will be displayed on the graph, and the groups object contains an array of objects which represent groups of entities and data values.</p>
 
@@ -335,13 +335,109 @@
 <p>If no colour is specified the default colour selection will be used for that particular entity.</p>
 
 <h3>
-<a name="current-limitations" class="anchor" href="#current-limitations"><span class="octicon octicon-link"></span></a>Current Limitations</h3>
+<a name="constructing-data-for-line-graphs" class="anchor" href="#constructing-data-for-line-graphs"><span class="octicon octicon-link"></span></a>Constructing Data for Line Graphs</h3>
 
-<p>As Graphly is still in the early stages of development, it is still limited in a number of senses; primarily that it can only produce bar charts.</p>
+<p>The data structure passed to Graphly when creating line graphs differs quite a bit from that of bar charts. We have the xLabel and yLabel properties as we do in the other structure, however we have two arrays at the top level; those being the points and groups arrays.</p>
 
-<p>Multiple graph types are currently planned as new features to be added in the near future, so keep checking back if this is an issue for you.</p>
+<p>The points array contains an array of strings which are used to identify what the points represent along the X-axis. In the example below we use each month as we are illustrating stock prices over the space of a year.</p>
 
-<p>Alternatively, <a href="https://github.com/rastating/graphly/issues/new">Open an Issue</a> to bring suggestions and bugs to light.</p>
+<p>The groups array contains an array of objects which store a label (used in the legend to identify what the line represents; in our case the company names) and an array of numeric values (which we use to store the stock prices). The values in the values array need to be in the same order of the points array to match together properly. For example, as Feb is at position 2 in the points array, our value for Feb needs to also appear at position 2 in the values array of each group.</p>
+
+<p>Below is an example of how a line graph's data structure may look:</p>
+
+<div class="highlight"><pre>    <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">'Month'</span><span class="p">,</span>
+    <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">'Closing Price'</span><span class="p">,</span>
+    <span class="nx">points</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s1">'Jan'</span><span class="p">,</span>
+        <span class="s1">'Feb'</span><span class="p">,</span>
+        <span class="s1">'Mar'</span><span class="p">,</span>
+        <span class="s1">'Apr'</span><span class="p">,</span>
+        <span class="s1">'May'</span><span class="p">,</span>
+        <span class="s1">'Jun'</span><span class="p">,</span>
+        <span class="s1">'Jul'</span><span class="p">,</span>
+        <span class="s1">'Aug'</span><span class="p">,</span>
+        <span class="s1">'Sep'</span><span class="p">,</span>
+        <span class="s1">'Oct'</span><span class="p">,</span>
+        <span class="s1">'Nov'</span><span class="p">,</span>
+        <span class="s1">'Dec'</span>        
+    <span class="p">],</span>
+    <span class="nx">groups</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nx">label</span><span class="o">:</span> <span class="s1">'Apple'</span><span class="p">,</span>
+            <span class="nx">values</span><span class="o">:</span> <span class="p">[</span>
+                <span class="mf">456.48</span><span class="p">,</span>
+                <span class="mf">542.44</span><span class="p">,</span>
+                <span class="mf">599.55</span><span class="p">,</span>
+                <span class="mf">583.98</span><span class="p">,</span>
+                <span class="mf">577.73</span><span class="p">,</span>
+                <span class="mf">584.00</span><span class="p">,</span>
+                <span class="mf">610.76</span><span class="p">,</span>
+                <span class="mf">665.24</span><span class="p">,</span>
+                <span class="mf">667.10</span><span class="p">,</span>
+                <span class="mf">595.32</span><span class="p">,</span>
+                <span class="mf">585.28</span><span class="p">,</span>
+                <span class="mf">532.17</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nx">label</span><span class="o">:</span> <span class="s1">'Google'</span><span class="p">,</span>
+            <span class="nx">values</span><span class="o">:</span> <span class="p">[</span>
+                <span class="mf">580.11</span><span class="p">,</span>
+                <span class="mf">618.25</span><span class="p">,</span>
+                <span class="mf">641.24</span><span class="p">,</span>
+                <span class="mf">604.85</span><span class="p">,</span>
+                <span class="mf">580.86</span><span class="p">,</span>
+                <span class="mf">580.07</span><span class="p">,</span>
+                <span class="mf">632.97</span><span class="p">,</span>
+                <span class="mf">685.09</span><span class="p">,</span>
+                <span class="mf">754.50</span><span class="p">,</span>
+                <span class="mf">680.30</span><span class="p">,</span>
+                <span class="mf">698.37</span><span class="p">,</span>
+                <span class="mf">707.38</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nx">label</span><span class="o">:</span> <span class="s1">'Microsoft'</span><span class="p">,</span>
+            <span class="nx">values</span><span class="o">:</span> <span class="p">[</span>
+                <span class="mf">29.53</span><span class="p">,</span>
+                <span class="mf">31.74</span><span class="p">,</span>
+                <span class="mf">32.26</span><span class="p">,</span>
+                <span class="mf">32.02</span><span class="p">,</span>
+                <span class="mf">29.19</span><span class="p">,</span>
+                <span class="mf">30.59</span><span class="p">,</span>
+                <span class="mf">29.47</span><span class="p">,</span>
+                <span class="mf">30.82</span><span class="p">,</span>
+                <span class="mf">29.76</span><span class="p">,</span>
+                <span class="mf">28.54</span><span class="p">,</span>
+                <span class="mf">26.62</span><span class="p">,</span>
+                <span class="mf">26.71</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nx">label</span><span class="o">:</span> <span class="s1">'Netflix'</span><span class="p">,</span>
+            <span class="nx">values</span><span class="o">:</span> <span class="p">[</span>
+                <span class="mf">120.20</span><span class="p">,</span>
+                <span class="mf">110.73</span><span class="p">,</span>
+                <span class="mf">115.04</span><span class="p">,</span>
+                <span class="mf">80.14</span><span class="p">,</span>
+                <span class="mf">63.44</span><span class="p">,</span>
+                <span class="mf">68.49</span><span class="p">,</span>
+                <span class="mf">56.85</span><span class="p">,</span>
+                <span class="mf">59.72</span><span class="p">,</span>
+                <span class="mf">54.44</span><span class="p">,</span>
+                <span class="mf">79.24</span><span class="p">,</span>
+                <span class="mf">81.71</span><span class="p">,</span>
+                <span class="mf">92.59</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+
+<p>When passing this data to Graphly, it is important to use the type property to indicate we want to use a line graph. For example:</p>
+
+<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'#line-graph'</span><span class="p">).</span><span class="nx">graphly</span><span class="p">({</span> <span class="s1">'data'</span><span class="o">:</span> <span class="nx">line_graph_data</span><span class="p">,</span> <span class="s1">'type'</span><span class="o">:</span> <span class="s1">'line'</span><span class="p">,</span> <span class="s1">'width'</span><span class="o">:</span> <span class="mi">900</span><span class="p">,</span> <span class="s1">'height'</span><span class="o">:</span> <span class="mi">400</span> <span class="p">});</span>
+</pre></div>
 
 <h3>
 <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
