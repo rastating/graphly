@@ -1,6 +1,6 @@
 // Copyright (C) 2013 rastating
 //
-// Version 0.2.4
+// Version 0.3.4
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
         
         var settings = $.extend({
             'data'          : null,
+            'type'          : 'bar',
             'paddingTop'    : 1,
             'paddingLeft'   : 1,
             'paddingBottom' : 1,
@@ -61,6 +62,13 @@
                 var largestLabel = null;
                 var decimalCount = null;
                 
+                // If we're using a line graph and the default theme, switch to a
+                // slightly different version of the default theme which is more
+                // suited to line graphs due to the possibility of overlapping.
+                if (settings.type == 'line' && settings.theme == 'default') {
+                    settings.theme = 'default-line-graph';   
+                }
+                
                 // If a custom theme was specified, set it as the theme to use
                 // otherwise load the theme by name.
                 if (settings.customTheme == null) {
@@ -84,28 +92,41 @@
                 globals.paddingBottom = settings.paddingBottom < 15 ? 15 : settings.paddingBottom;
                     
                 $.each(settings.data.groups, function(i, group) {
+                    // Calculate the dimensions of the current label and update
+                    // the largest label width, if it's a line graph and required.
+                    if (settings.type == 'line') {
+                        var currentLabelWidth = ctx.measureText(group.label).width;
+                        if (largestLabel == null || largestLabel < currentLabelWidth) {
+                            largestLabel = currentLabelWidth;   
+                        }
+                    }
+                    
                     $.each(group.values, function(i, entity) {
+                        var value = settings.type == 'bar' ? entity.value : entity;
+                        
                         // Update the largest value, if needed.
-                        if (largestValue == null || largestValue < entity.value) {
-                            largestValue = entity.value;   
+                        if (largestValue == null || largestValue < value) {
+                            largestValue = value;   
                         }
                         
                         // Update the smallest value, if needed.
-                        if (smallestValue == null || smallestValue > entity.value) {
-                            smallestValue = entity.value;   
+                        if (smallestValue == null || smallestValue > value) {
+                            smallestValue = value;   
                         }
                         
                         // Update the decimal count value, if needed.
-                        var currentDecimalPlaces = methods.getDecimalPlaces(entity.value);
+                        var currentDecimalPlaces = methods.getDecimalPlaces(value);
                         if (decimalCount == null || decimalCount < currentDecimalPlaces) {
                             decimalCount = currentDecimalPlaces;
                         }
                         
                         // Calculate the dimensions of the current label and update
                         // the largest label width, if needed.
-                        var currentLabelWidth = ctx.measureText(entity.label).width;
-                        if (largestLabel == null || largestLabel < currentLabelWidth) {
-                            largestLabel = currentLabelWidth;   
+                        if (settings.type == 'bar') {
+                            var currentLabelWidth = ctx.measureText(entity.label).width;
+                            if (largestLabel == null || largestLabel < currentLabelWidth) {
+                                largestLabel = currentLabelWidth;   
+                            }
                         }
                         
                         // If a custom colour has been specified, copy it into
@@ -115,7 +136,7 @@
                         }
                         
                         // Increment the bar count.
-                        barCount += 1; 
+                        barCount += 1;
                     });
                 });                
                 
@@ -170,11 +191,18 @@
                 
                 // Loop through the groups to get a distinct list of labels.
                 $.each(settings.data.groups, function(i, group) {
-                    $.each(group.values, function(i, entity) {
-                        if ($.inArray(entity.label, labels) == -1) {
-                            labels[labels.length] = entity.label;   
+                    if (settings.type == 'bar') {
+                        $.each(group.values, function(i, entity) {
+                            if ($.inArray(entity.label, labels) == -1) {
+                                labels[labels.length] = entity.label;   
+                            }
+                        });
+                    }
+                    else {
+                        if ($.inArray(group.label, labels) == -1) {
+                            labels[labels.length] = group.label;   
                         }
-                    });
+                    }
                 });
                 
                 ctx.save();
@@ -330,6 +358,69 @@
             roundToFixed : function(number, decimalPlaces) {
                 var rounder = Math.pow(10, decimalPlaces);
                 return (Math.round(number * rounder) / rounder).toFixed(decimalPlaces);
+            },
+            drawLines : function(ctx) {
+                ctx.save();
+                ctx.font = "11px \"lucida grande\",tahoma,verdana,arial,sans-serif";
+                globals.left += 5;
+
+                var chartWidth = globals.right - globals.left - globals.paddingRight;
+                var plotSpacing = chartWidth / settings.data.points.length;
+                var totalSteps = (globals.smallestValue * -1) + globals.largestValue;
+                var stepHeight = (globals.bottom - globals.top) / totalSteps;
+                var zeroPoint = globals.bottom - ((globals.smallestValue * -1) * stepHeight);
+                var x = globals.left;
+                var drawnLabels = false;
+                var rectanglePoints = new Array();
+                
+                $.each(settings.data.groups, function(i, group) {
+                    var previousPointY = zeroPoint;
+                    var previousPointX = globals.left + (plotSpacing / 2);
+                    var groupFillColor = methods.getFillColor(i);
+                    var groupStrokeColor = methods.getStrokeColor(i);
+                    x = globals.left + (plotSpacing / 2);
+                    
+                    $.each(group.values, function(i, value) {
+                        var lineHeight = globals.bottom - (value * stepHeight);;
+                        ctx.beginPath();
+                        
+                        ctx.strokeStyle = groupFillColor;
+                        ctx.lineWidth = 3;
+                        if (i > 0) {
+                            ctx.moveTo(previousPointX, previousPointY);
+                            ctx.lineTo(x + 0.5, lineHeight);
+                        }
+                        
+                        previousPointX = x + 0.5;
+                        previousPointY = lineHeight;
+                        ctx.stroke();
+                        rectanglePoints[i] = new Array(previousPointX, previousPointY);
+                        ctx.closePath();
+                        
+                        // Increment the X point and draw a label if required.
+                        var distance = plotSpacing + 9;
+                        x += distance;
+                        if (!drawnLabels) {
+                            // The plotSpacing / 2 is removed in the below variable as 
+                            // we X is placed at the center point of each label in line graphs.
+                            var labelX = (x - 4) - (distance / 2) - (plotSpacing / 2);
+                            ctx.textAlign = "center";
+                            ctx.fillStyle = "#000000";
+                            ctx.fillText(settings.data.points[i], labelX, globals.bottom + 15);
+                        }
+                    });
+                    
+                    $.each(rectanglePoints, function(i, point) {
+                        ctx.rect(point[0] - 5, point[1] - 5, 10, 10);
+                        ctx.fillStyle = groupStrokeColor;
+                        ctx.fill();
+                    });
+                    
+                    drawnLabels = true;
+                    x = globals.left + (plotSpacing / 2);
+                });
+                
+                ctx.restore();
             }
         };
         
@@ -372,8 +463,14 @@
             globals.smallestValue = globals.smallestValue > 0 ? 0 : globals.smallestValue;
             methods.drawValueLabels(ctx);
             
-            // Draw the bars and the graph axis.
-            methods.drawBars(ctx);
+            // Draw the bars or lines and the graph axis.
+            if (settings.type == "bar") {
+                methods.drawBars(ctx);   
+            }
+            else {
+                methods.drawLines(ctx);   
+            }
+            
             methods.drawAxis(ctx);
         });
     };
@@ -466,6 +563,95 @@
                             fill: '#e3b784',
                             stroke: '#b59b69'
                         },
+                        {
+                            fill: '#e9d29e',
+                            stroke: '#baa37e'
+                        }
+                    ]
+                },
+                {
+                    name: 'default-line-graph',
+                    colors: [
+                        {
+                            fill: '#d32226',
+                            stroke: '#a81b1e'
+                        },
+                        {
+                            fill: '#7fc223',
+                            stroke: '#659b25'
+                        },
+                        {
+                            fill: '#875fbe',
+                            stroke: '#6c4c98'
+                        },
+                        {
+                            fill: '#e7cf00',
+                            stroke: '#b8a500'
+                        },
+                        {
+                            fill: '#5c7cda',
+                            stroke: '#4963ae'
+                        },
+                        {
+                            fill: '#da5cb3',
+                            stroke: '#ae4993'
+                        },
+                        {
+                            fill: '#da915c',
+                            stroke: '#ae7849'
+                        },                        
+                        {
+                            fill: '#de585b',
+                            stroke: '#b14648'
+                        },
+                        {
+                            fill: '#9ed162',
+                            stroke: '#7ea74e'
+                        },
+                        {
+                            fill: '#a486ce',
+                            stroke: '#836ba4'
+                        },
+                        {
+                            fill: '#eddb3e',
+                            stroke: '#bdaf31'
+                        },
+                        {
+                            fill: '#849ce3',
+                            stroke: '#697cb5'
+                        },
+                        {
+                            fill: '#e384c9',
+                            stroke: '#b569af'
+                        },
+                        {
+                            fill: '#e3b784',
+                            stroke: '#b59b69'
+                        },
+                        {
+                            fill: '#e57b7e',
+                            stroke: '#b76264'
+                        },
+                        {
+                            fill: '#b3db83',
+                            stroke: '#8faf68'
+                        },
+                        {
+                            fill: '#b7a0d8',
+                            stroke: '#9280ac'
+                        },
+                        {
+                            fill: '#f1e267',
+                            stroke: '#c0b452'
+                        },
+                        {
+                            fill: '#9eb1e9',
+                            stroke: '#7e8dba'
+                        }, 
+                        {
+                            fill: '#e99edb',
+                            stroke: '#ba7eb5'
+                        }, 
                         {
                             fill: '#e9d29e',
                             stroke: '#baa37e'
