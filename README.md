@@ -3,7 +3,7 @@ graphly
 
 Graphly is an easy to use and lightweight jQuery plugin which allows you to transform your data into clean and customisable graphs. See below an example of a graph created using Graphly.
 
-![Graphly Sample](http://rastating.com/graphly-bar-chart.jpg)
+![Graphly Sample](http://blog.rastating.com/content/images/misc/graphly-bar-chart.jpg)
 
 Supported browsers include:
 * Chrome
